@@ -1,29 +1,546 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<head>
+<meta charset="utf-8">
+<title>[ Hridoy Sankar Dutta ]</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  ga('create', 'UA-89151601-1', 'auto');
-  ga('send', 'pageview');
+<!-- Font Awesome Icons -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-</script>
-      
-{% include carrier-profile.html %}
-            
-{% include experience.html %}
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+<!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
 
-{% include publications.html %}
-
-{% include awards.html %}
-            
-{% include projects.html %}
-            
-{% include skills.html %}
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="js/html5shiv.js"></script>
+<script src="js/respond.min.js"></script>
+<![endif]-->
 
 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="js/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/menucollapse.js"></script>
+<script type="text/javascript" src="js/arrow78.js"></script>
+<script type="text/javascript" src="js/custom.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
+<body id="page-top" class="index">
+
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="glyphicon glyphicon-search"></span>
+            </button>
+            <button id="button2" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <span><a href="http://www.iiitd.ac.in"><img border="0" height="50" width="100" src="images/iiitd.png"/></a></span>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right"> 
+                <li class="page-scroll">
+                <a href="#home">Home</a>
+                </li>
+                <!--<li class="page-scroll">
+                    <a onclick="javascript:reset_menus();$('#tab-2-content').show();" href="#news">News</a>
+                </li>-->
+                <li class="page-scroll">
+                <a href="#publications">Publications</a>
+                    
+                </li>
+                <li class="page-scroll">
+                    <a href="#awards">Selected Awards</a>
+                </li>
+                <li class="page-scroll">
+                    <a onclick="javascript:reset_menus();$('#tab-4-content').show();" href="#media">Media Coverage</a>
+                </li>
+                <li class="page-scroll">
+                    <a onclick="javascript:reset_menus();$('#tab-5-content').show();" href="#work">Work Experience</a>
+                </li>
+               
+                <li class="page-scroll">
+                    <a onclick="javascript:reset_menus();$('#tab-9-content').show();" href="#contact">Contact</a>
+                </li>
+                <li class="page-scroll">
+                    <a onclick="javascript:reset_menus();$('#tab-9-content').show();" href="#contact">Skills</a>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+
+        
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!-- Home Section -->
+<section id="home" style="margin-top:40px">
+<div class="container">
+        <div align="left" class="col-md-3">
+            <a target="_blank" href="https://avatars3.githubusercontent.com/u/3442083?v=3&s=460">
+                <img id="mobile-img" src="images/rounded_corners.png" width="250" border="0" height="280" alt=""></a>
+        </div>
+        <div align="left" class="col-md-5">
+            <h3>Hridoy Sankar Dutta
+                <h5>Pursuing PhD @ IIIT-Delhi</h5></h3>
+
+            <h4>
+            Department of Computer Science<br>
+            Indraprastha Institute of Information Technology, Delhi<br>
+            P.O. 110020<br>
+            Okhla Industrial Estate, Phase III, Near Govind Puri Metro Station, Delhi<br>
+            <a href="https://www.linkedin.com/in/hridoy-sankar-dutta-18448a63/?ppe=1"><i class="fa fa-linkedin-square fa-2x"></i></a> 
+            <a href="https://github.com/hridaydutta123/"><i class="fa fa-github fa-2x"></i></a>
+            <a href="https://twitter.com/@hridaydutta123"><i class="fa fa-twitter fa-2x"></i></a>
+            <a href="https://scholar.google.co.in/citations?user=4UrQjwUAAAAJ&hl=en"><img src="images/Google_Scholar_logo.png" height="30%" width="30%" /></a>
+            <a href="http://dblp.uni-trier.de/pers/hd/d/Dutta:Hridoy_Sankar"><img src="images/dblp.png" height="30%" width="30%" /></a>
+            <a href="https://www.hackerearth.com/@hridaydutta123"><img src="images/hackerearth.png" height="10%" width="10%" /></a>
+            <br/><br/>
+            <!--Fax: <a href="tel:0035722892701">+357-22892701</a><br/>-->
+            <i class="fa fa-envelope"></i>
+            <script language="JavaScript">
+                <!--
+                document.write("&nbsp;");
+                spiderjam('hridaydutta123','gmail.com');
+                -->
+            </script><br/>
+            <i class="fa fa-map-marker fa-2x"></i> <a target="_blank" href="https://goo.gl/maps/JMSCdVNA6qG2">https://goo.gl/maps/JMSCdVNA6qG2</a>
+            </h4>
+        </div>
+
+        <i class="twittertop" style="display:none;" id="t1">
+        <div id="news" tyle="text-align: left"  class="col-md-4">&nbsp;
+            <center><a class="twitter-timeline" data-height="300" data-theme="light" href="https://twitter.com/hridaydutta123">Tweets by hridaydutta123</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></script></center>
+        </div>
+        </i>
+
+        <!--<p><a href="#" class="btn btn-primary">More &raquo;</a></p>-->
+        <i class="expandshow" style="display:none;" id="tab-1">
+            <button class="btn btn-primary btn-lg btn-block" style="width: 100%;" onclick="javascript:$('.allshow').show();$('.noshow').hide();$('.collapseshow').show();$('.expandshow').hide();">EXPAND ALL SECTIONS <span class="glyphicon glyphicon-chevron-down"></span></button>
+        </i>
+        <i class="collapseshow" style="display:none;" id="tab-1">
+            <button class="btn btn-primary btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('.allshow').hide();$('.noshow').show();$('.expandshow').show();$('.collapseshow').hide();">COLLAPSE ALL SECTIONS <span class="glyphicon glyphicon-chevron-up"></span></button>
+        </i>
+
+    </div>
+</section>
+
+<!-- Home Section -->
+<section id="intro">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+            <!--<h2>Welcome!</h2>-->
+
+            <i class="noshow" style="display:none;" id="tab-1">
+            <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('#tab-1-content').toggle();">Introduction <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+
+            <div class="allshow" style="display:none;" id="tab-1-content">
+            <hr class="star-primary">
+
+            <p class="lead">I am a PhD Research Scholar of Computer Science Department at <a href="http://www.iiitd.ac.in">Indraprastha Institute of Information Technology, Delhi</a> under the guidance of <a href="https://sites.google.com/site/tanmoychakra88/">Prof. Tanmoy Chakraborty</a>. I hold a M.Tech (2017) in Computer Science and Engineering from National Institute of Technology, Durgapur working with <a href="http://nitdgp.ac.in/MCN-RG/mcn-rg.html">Mobile Computing and Networking Research Group</a> under the guidance of <a href="http://nitdgp.ac.in/MCN-RG/sn.html">Prof. Subrata Nandi</a> and <a href="http://nitdgp.ac.in/MCN-RG/ss.html">Prof. Sujoy Saha</a> and a B.Tech (2013) in Computer Science and Engineering from the <a href="http://www.gauhati.ac.in/college-Institute%20of%20Science%20&%20Technology.php">Institute of Science and Technology, Guwahati</a>. I have been a Student Researcher at <a href="http://theforkit.co/">ForkIT</a> for the project <a href="http://itra.medialabasia.in/?p=635">"Post Disaster Situation Analysis and Resource Management using Delay-Tolerant Peer-to-Peer Wireless Networks (DISARM)"</a> during the year 2016-17 . Between 2014 and 2015, I have worked as Assistant Project Engineer at <a href="http://www.iitg.ac.in">IIT Guwahati</a> for the project <a href="http://www.iitg.ernet.in/cseweb/tts/">"Development of Text to Speech System in Assamese and Manipuri Languages"</a> under the guidance of <a href="https://www.iitg.ernet.in/eee/emstlab/profiles/srmp.php">Prof. S.R.M.Prasanna</a>.
+            </p>
+            <p>
+           <!-- My research interests include <b>Data Management in Computer Systems and  Networks</b>, particularly <i>Mobile and Sensor Data Management; Big Data Management in Parallel and Distributed Architectures; Spatio-Temporal Data Management; Network and Web 2.0 Data Management; Crowd and Indoor Data Management; Data Privacy Management.</i>
+            </p>
+            <p>
+            Besides research and teaching, I also enjoy transforming basic research results into systems and services. Check out a few recent examples:
+            <a href="http://anyplace.cs.ucy.ac.cy" target="_blank">Anyplace</a> (Indoor, Big Data),
+            <a href="http://rayzit.com/" target="_blank">Rayzit</a> (Crowdsourcing, Big Data),
+            <a href="http://smartlab.cs.ucy.ac.cy" target="_blank">SmartLab</a> (Mobile Cloud),
+            <a href="http://www2.ucy.ac.cy/~laoudias/pages/platform.html" target="_blank">Airplace</a> (Indoor),
+            <a href="http://smarttrace.cs.ucy.ac.cy" target="_blank">Smarttrace</a> (Trajectories),
+            <a href="http://tvm.cs.ucy.ac.cy" target="_blank">TVM</a> (Privacy),
+            <a href="http://kspot.cs.ucy.ac.cy" target="_blank">KSpot</a> (Sensor).
+            </p>
+
+            <p><!--<a href="bio.html" class="btn-sm btn-primary">Short Biography &raquo;</a>-->
+                <a href="https://raw.githubusercontent.com/hridaydutta123/resume/master/main.pdf" class="btn-sm btn-primary">CV (PDF)&raquo;</a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<div class="twitterlow" style="display:none;" id="t1">
+<!-- News Section -->
+<section id="news">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-2">
+                <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('#tab-2-content').toggle();">News  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+            <i class="allshow" style="display:none;" id="tab-2-content">
+
+            <hr class="star-primary">
+
+            <h2>News</h2>
+            <center><a class="twitter-timeline" href="https://twitter.com/dmslucy" data-chrome="nofooter" data-widget-id="346662554203992065">Tweets
+                by @dmslcy</a>
+            <script>!function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                if (!d.getElementById(id)) {
+                    js = d.createElement(s);
+                    js.id = id;
+                    js.src = p + "://platform.twitter.com/widgets.js";
+                    fjs.parentNode.insertBefore(js, fjs);
+                }
+            }(document, "script", "twitter-wjs");
+            </script>
+            </center>
+            </i>
+        </div>
+    </div>
+</section>
+</div>
+
+
+<!-- Research Section -->
+<section id="publications">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-3">
+                <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('#tab-3-content').toggle();">Publications  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+            <div class="allshow" style="display:none;" id="tab-3-content">
+            <hr class="star-primary">
+
+            <h2>Publications</h2>
+            <h4>
+            <span class="label label-warning">
+                <a target="_blank" href="https://en.wikipedia.org/wiki/H-index"><font color=white>h-index</font></a>: 0
+            </span>&nbsp;
+            <span class="label label-warning">
+               <a target="_blank" href="https://scholar.google.com/citations?user=HCxwGIkAAAAJ&hl=en"><font color=white>Citations</font></a>: 0
+            </span>&nbsp;
+           
+            </h4>
+
+
+            <ul>
+                 <li><span class="label label-success">ACM SIGSPATIAL'16</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=3017620">"Offline Crisis Mapping by Opportunistic Dissemination of Crisis Data after         Large-scale Disasters"</a>, Partha Sarathi Paul, <b>Hridoy Sankar Dutta</b>, Bishakh Chandra Ghosh, Krishnandu Hazra, Sandip Chakraborty, Sujoy Saha, Subrata Nandi, <i><b>2nd ACM SIGSPATIAL Workshop on Emergency Management using GIS (ACM SIGSPATIAL Workshop - EM-GIS 2016)</b></i>, San Francisco Bay Area, CA, USA, October 31- November 03, 2016. 
+               
+                <li><span class="label label-success">ACM SAC'14</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=2555080">"Hierarchical Topology Adaptation for Distributed Convergecast Applications"</a>, Sandip Chakraborty, Suchetana Chakraborty, Sushanta Karmakar and <b>Hridoy Sankar Dutta</b>,  <b><i>29th ACM Symposium On Applied Computing, Dependable and Adaptive Distributed Systems Track (ACM SAC - DADS)</b></i>, Gyeongju, Korea, March 24 - 28, 2014.</li>
+            </ul>
+           
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<!--<section id="courses">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-1">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-4-content').toggle();">Courses  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+            <div class="allshow" style="display:none;" id="tab-4-content">
+            <hr class="star-primary">
+            <h2>Courses <a href="teaching.html" class="btn btn-primary">More &raquo;</a></h2>
+            <ul>
+                <li><span class="label label-success">EPL646</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl646/">Advanced Topics in Databases</a> (Fall)</li>
+                <li><span class="label label-default">EPL446</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl446/">Advanced Database Systems</a></li>
+                <li><span class="label label-success">EPL371</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl371/">Systems Programming</a> (Winter)</li>
+               <li><span class="label label-default">EPL342</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl342/">Databases</a></li>
+                <li><span class="label label-success">EPL132</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl132">Programming Principles II</a> (Winter)</li>
+                <li><span class="label label-default">EPL111</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl111">Discrete Structures in Computer Science and Computation</a></li>
+                <li><span class="label label-default">EPL035</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl035">Data Structures and Algorithms for ECE</a></li>
+                <li><span class="label label-default">EPL032</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl032">Introduction to Programming and Problem Solving</a></li>
+                <li><span class="label label-default">EPL003</span> Computer Science and Information Systems</li>
+                <li><span class="label label-default">EPL001</span> Introduction to Computer Science</li>
+            </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section id="awards">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-1">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-5-content').toggle();">Awards  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+            <div class="allshow" style="display:none;" id="tab-5-content">
+
+            <hr class="star-primary">
+            <h2>Selected Awards <!--<a href="cv.html#SECTION000120000000000000000" class="btn btn-primary">More &raquo;</a></h2>-->
+            </h2>
+            <ul>
+                <li>
+                    <span class="label label-success">Techniche'12</span> <b>3rd prize</b> in Coding Competition at <b>IIT Guwahati</b>. </span>
+                </li>
+                <li>
+                    <span class="label label-success">ISED'16</span> <b>Grand Challenge Grade A winner</b> where smart and embedded device innovators around the world vied for the top spot at <b>IIT Patna</b>.</span>
+                </li>
+              
+            </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Media Coverage Section -->
+<section id="media">
+
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-6">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-6-content').toggle();">Service  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+          	 <div class="allshow" style="display:none;" id="tab-5-content">
+
+            <hr class="star-primary">
+            <h2>Media Coverage <!--<a href="cv.html#SECTION000120000000000000000" class="btn btn-primary">More &raquo;</a></h2>-->
+            </h2>
+            <ul>
+                <li>
+                    <span class="label label-success">Aamarkatha, Durgapur</span><a href="http://aamarkatha.com/?p=1121"> Media Coverage</a> of our Group in a local daily</span>
+                </li>
+                <li>
+                    <span class="label label-success">Sambad, Durgapur</span><a href="https://drive.google.com/open?id=0ByV9o83Hrve3Z3ZtRHFhSUotZGM"> News Magazine Coverage</a> of our Group</span>
+                </li>
+              
+            </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Work Experience Section -->
+<section id="work">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+           <i class="noshow" style="display:none;" id="tab-7">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-7-content').toggle();">Work Experience<span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+           <div class="allshow" style="display:none;" id="tab-7-content">
+
+            <hr class="star-primary">
+            <h2>Work Experience</h2>
+            <ul>
+                <li>
+                    <span class="label label-success">ForkIT</span> Student Researcher
+                </li>
+                <li>
+                    <span class="label label-success">IIT Guwahati</span> Development of Text to Speech System in Assamese and Manipuri Languages
+                </li>
+            </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Home Section -->
+<section id="links">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-8">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-8-content').toggle();">Links  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+
+          <!--  <div class="allshow" style="display:none;" id="tab-8-content">
+
+            <hr class="star-primary">
+            <h2>Random Links</h2>
+            <ul>
+                <li><span class="label label-success"><a target="_blank" href="http://www.cs.ucy.ac.cy/colloquium/"><font color="white">Colloquium</font></a></span> I am the Computer Science Colloquium Coordinator.</li>
+                <li><span class="label label-default"><a target="_blank" href="http://www.homepages.ucl.ac.uk/~uccazei/"><font color="white">Brother</font></a></span> My brother's website at UCL, UK.</li>
+                <li><span class="label label-info"><a target="_blank" href="https://smartlib.cs.ucy.ac.cy/scripts/exportBooks.php?mykey=0a05bb77edad7395da818f361f8115a2"><font color="white">Books</font></a></span> My book collection constructed using our <a target="_blank" href="http://smartlib.cs.ucy.ac.cy/">SmartLib project.</a></li>
+                <li><span class="label label-danger"><a target="_blank" href="https://code.org/learn"><font color="white">Hour-of-Code</font></a></span> I support the hour of code iniative as a volunteer instructor.</a></li>
+                <li><span class="label label-primary"><a target="_blank" href="https://github.com/dmsl"><font color="white">Github</font></a></span> I support open-source code development.</a></li>
+                <li><span class="label label-warning"><a target="_blank" href="http://www.kyreniaship.org/"><font color="white">Kyrenia-Chrysocava</font></a></span> A project aimed to preserve the cultural heritage of the <a target="_blank" href="https://en.wikipedia.org/wiki/Kyrenia_ship">Kyrenia ship</a>.</li>
+                <li><span class="label label-success"><font color="white">Cycling</font></span> My favorite hobby besides programming :-)</a></li>
+            </ul>
+            </div>-->
+        </div>
+    </div>
+</section>
+
+<!-- Home Section -->
+<section id="contact">
+    <div class="container lead">
+        <div style="text-align: left; margin-top:10px" class="col-md-12">
+
+            <i class="noshow" style="display:none;" id="tab-9">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-9-content').toggle();">Contact  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+            <div class="allshow" style="display:none;" id="tab-9-content">
+
+            <hr class="star-primary">
+            <h2>Contact</h2>
+            <div class="container lead">
+                <div align="left" class="col-md-3">
+                    <h4 class="myEN">
+                        POSTAL ADDRESS (EN<!--| <a target="_blank" onclick="javascript:$('.myEN').hide();$('.myEL').show();">EL</a>-->)
+                    </h4>
+
+                    <h4 class="myEL" style="display:none">
+                            ΤΑΧΥΔΡΟΜ. ΔΙΕΥΘ. (<a target="_blank" onclick="javascript:$('.myEN').show();$('.myEL').hide();">EN</a> | EL)
+                    </h4>
+
+                    <p class="myEL" style="display:none">
+                    Δημήτρης Ζεϊναλιπούρ<br>
+                    Τμήμα Πληροφορικής<br>
+                    Πανεπιστήμιο Κύπρου<br>
+                    Τ.Θ. 20537<br>
+                    1678 Λευκωσία, ΚΥΠΡΟΣ<br>
+                    </p>
+
+                    <p class="myEN">
+                        Hridoy Sankar Dutta<br>
+                        Dept. of Computer Science<br>
+                        Indraprastha Institute of Information Technology<br>
+                        Okhla Industrial Estate, Phase III,<br>
+                        Near Govind Puri Metro Station, Delhi, 110020<br>
+                    </p>
+                </div>
+
+                <div align="left" class="col-md-3">
+                    <h4>CONTACT VCARD</h4>
+                    <p>
+                     <a href="#"><img src="images/hridoy.gif" border="0" width="150"><br>
+
+                    <!--   <a href="zeinalipour.vcf" class="btn btn-primary">Get VCF Card &raquo;</a>-->
+                    </p>
+                </div>
+                <div align="left" class="col-md-5">
+                <section class="skills-section section">
+
+                   <div class="skillset">        
+                    <div class="item">
+                        <h4 class="level-title">Python &amp; Django</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="80%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+                    
+                    <div class="item">
+                        <h4 class="level-title">Javascript &amp; jQuery</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+                    
+                    <div class="item">
+                        <h4 class="level-title">PHP</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+                    
+                    <div class="item">
+                        <h4 class="level-title">HTML5 &amp; CSS</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="95%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+                    
+                    <div class="item">
+                        <h4 class="level-title">Linux</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+                    
+                    <div class="item">
+                        <h4 class="level-title">Photoshop</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h4 class="level-title">MySQL</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h4 class="level-title">Shell Scripting</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="80%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h4 class="level-title">NS-2</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="60%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h4 class="level-title">Android</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+                    <div class="item">
+                        <h4 class="level-title">GIT</h4>
+                        <div class="level-bar">
+                            <div class="level-bar-inner" data-level="90%">
+                            </div>                                      
+                        </div><!--//level-bar-->                                 
+                    </div><!--//item-->
+
+
+                </div>  
+                </section>
+                </div>
+
+
+        </div>
+        <hr class="star-primary">
+        </div>
+
+</section>
+
+<hr class="star-primary">
+<footer>
+    <small>
+    <center>
+        © 2017 | Hridoy Sankar Dutta
+     </center>
+    </small>
+</footer>
+
+</body>
+
+</html>
