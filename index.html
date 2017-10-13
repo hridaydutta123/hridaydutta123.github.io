@@ -40,6 +40,19 @@
   ga('send', 'pageview');
 
 </script>
+
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
+<link rel="stylesheet" href="css/github-activity-0.1.5.min.css">
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js"></script>
+<script type="text/javascript" src="js/github-activity-0.1.5.min.js"></script>
+<script type="text/javascript">
+GitHubActivity.feed({
+    username: "hridaydutta123",
+    selector: "#feed",
+    limit: 20 // optional
+});
+</script>
 <body id="page-top" class="index">
 
 <!-- Navigation -->
@@ -105,6 +118,7 @@
             <a target="_blank" href="https://avatars3.githubusercontent.com/u/3442083?v=3&s=460">
                 <img id="mobile-img" src="images/rounded_corners.png" width="250" border="0" height="280" alt=""></a>
         </div>
+
         <div align="left" class="col-md-5">
             <h3>Hridoy Sankar Dutta
                 <h5>Pursuing PhD @ IIIT-Delhi</h5></h3>
@@ -138,7 +152,6 @@
             <center><a class="twitter-timeline" data-height="300" data-theme="light" href="https://twitter.com/hridaydutta123">Tweets by hridaydutta123</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></script></center>
         </div>
         </i>
-
         <!--<p><a href="#" class="btn btn-primary">More &raquo;</a></p>-->
         <i class="expandshow" style="display:none;" id="tab-1">
             <button class="btn btn-primary btn-lg btn-block" style="width: 100%;" onclick="javascript:$('.allshow').show();$('.noshow').hide();$('.collapseshow').show();$('.expandshow').hide();">EXPAND ALL SECTIONS <span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -149,7 +162,7 @@
 
     </div>
 </section>
-
+    
 <!-- Home Section -->
 <section id="intro">
     <div class="container lead">
@@ -541,6 +554,15 @@
 
 </section>
 
+<section id="timelines">
+    <div style="text-align: left; margin-top:10px" class="col-md-12">
+            <i class="noshow" style="display:none;" id="tab-9">
+                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-9-content').toggle();">Timelines<span class="glyphicon glyphicon-chevron-right"></span></button>
+            </i>
+    </div>
+    <div id="feed"></div>
+    
+</section>
 <hr class="star-primary">
 <footer>
 	<div align=center><a href='http://www.counter12.com'><img src='http://www.counter12.com/img-wY41y3ZzD35b3340-3.gif' border='0' alt='free counter'></a><script type='text/javascript' src='http://www.counter12.com/ad.js?id=wY41y3ZzD35b3340'></script></div>
