@@ -1,3 +1,4 @@
+[![HitCount](http://hits.dwyl.io/hridaydutta123/hridaydutta123.github.io.svg)](http://hits.dwyl.io/hridaydutta123/hridaydutta123.github.io)
 ## Academic Responsive (AR) Website Template
 
 ## A Responsive HTML5/CSS3 template for setting up an academic website.
