@@ -12,6 +12,8 @@
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/styles.css" rel="stylesheet">
+<link href="css/fingers.css" rel="stylesheet">
+
 <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -74,6 +76,7 @@ GitHubActivity.feed({
             <span><a href="http://www.iiitd.ac.in"><img border="0" height="50" width="100" src="images/iiitd.png"/></a></span>
         </div>
 
+
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right"> 
@@ -84,7 +87,7 @@ GitHubActivity.feed({
                     <a onclick="javascript:reset_menus();$('#tab-2-content').show();" href="#news">News</a>
                 </li>-->
                 <li class="page-scroll">
-                <a href="gallery.html">Gallery<img src="http://www.animatedgif.net/new/newx03_e0.gif" /></a>
+                <a href="gallery.html">Gallery<img src="http://animatedgif.net/new/new2_e0.gif" /></a>
 
                 <li class="page-scroll">
                 <a href="#publications">Publications</a>
@@ -238,7 +241,6 @@ GitHubActivity.feed({
 </section>
 </div>
 
-
 <!-- Research Section -->
 <section id="publications">
     <div class="container lead">
@@ -262,9 +264,9 @@ GitHubActivity.feed({
             </h4>
 
             <ul>
-                <li><span class="label label-success">WSDM'19</span> <a target="_blank" href="#">"CoReRank: Ranking to Detect Users Involved in Blackmarket-based Collusive Retweeting Activities"</a>, <b>Hridoy Sankar Dutta</b>, Aditya Chetan, Brihi Joshi, Tanmoy Chakraborty, <i><b>12th ACM International Conference on Web Search and Data Mining (WSDM 2019)</b></i>, Melbourne, Australia, Feb 11-15, 2019.
+                <li><span class="label label-success">WSDM'19</span> <a target="_blank" href="#">"CoReRank: Ranking to Detect Users Involved in Blackmarket-based Collusive Retweeting Activities"</a>, Aditya Chetan*, Brihi Joshi*, <b>Hridoy Sankar Dutta*</b>, Tanmoy Chakraborty, <i><b>12th ACM International Conference on Web Search and Data Mining (WSDM 2019)</b></i>, Melbourne, Australia, Feb 11-15, 2019.
 
-                 <li><span class="label label-success">ASONAM'18</span> <a target="_blank" href="#">"Retweet Us, We Will Retweet You: Spotting Collusive Retweeters Involved in Blackmarket Services"</a>, <b>Hridoy Sankar Dutta</b>, Aditya Chetan, Brihi Joshi, Tanmoy Chakraborty, <i><b>IEEE/ACM International Conference on Social Networks Analysis and Mining (ASONAM 2018)</b></i>, Barcelona, Spain, August 28- August 31, 2018. 
+                 <li><span class="label label-success">ASONAM'18</span> <a target="_blank" href="#">"Retweet Us, We Will Retweet You: Spotting Collusive Retweeters Involved in Blackmarket Services"</a>, <b>Hridoy Sankar Dutta</b>, Aditya Chetan*, Brihi Joshi*, Tanmoy Chakraborty, <i><b>IEEE/ACM International Conference on Social Networks Analysis and Mining (ASONAM 2018)</b></i>, Barcelona, Spain, August 28- August 31, 2018. 
                
                  <li><span class="label label-success">ACM SIGSPATIAL'16</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=3017620">"Offline Crisis Mapping by Opportunistic Dissemination of Crisis Data after         Large-scale Disasters"</a>, Partha Sarathi Paul, <b>Hridoy Sankar Dutta</b>, Bishakh Chandra Ghosh, Krishnandu Hazra, Sandip Chakraborty, Sujoy Saha, Subrata Nandi, <i><b>2nd ACM SIGSPATIAL Workshop on Emergency Management using GIS (ACM SIGSPATIAL Workshop - EM-GIS 2016)</b></i>, San Francisco Bay Area, CA, USA, October 31- November 03, 2016. 
                
@@ -276,38 +278,13 @@ GitHubActivity.feed({
     </div>
 </section>
 
-<!-- Courses Section -->
-<!--<section id="courses">
-    <div class="container lead">
-        <div style="text-align: left; margin-top:10px" class="col-md-12">
 
-            <i class="noshow" style="display:none;" id="tab-1">
-                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-4-content').toggle();">Courses  <span class="glyphicon glyphicon-chevron-right"></span></button>
-            </i>
-            <div class="allshow" style="display:none;" id="tab-4-content">
-            <hr class="star-primary">
-            <h2>Courses <a href="teaching.html" class="btn btn-primary">More &raquo;</a></h2>
-            <ul>
-                <li><span class="label label-success">EPL646</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl646/">Advanced Topics in Databases</a> (Fall)</li>
-                <li><span class="label label-default">EPL446</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl446/">Advanced Database Systems</a></li>
-                <li><span class="label label-success">EPL371</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl371/">Systems Programming</a> (Winter)</li>
-               <li><span class="label label-default">EPL342</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl342/">Databases</a></li>
-                <li><span class="label label-success">EPL132</span> <a href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl132">Programming Principles II</a> (Winter)</li>
-                <li><span class="label label-default">EPL111</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl111">Discrete Structures in Computer Science and Computation</a></li>
-                <li><span class="label label-default">EPL035</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl035">Data Structures and Algorithms for ECE</a></li>
-                <li><span class="label label-default">EPL032</span> <a target="_blank" href="http://www.cs.ucy.ac.cy/~dzeina/courses/epl032">Introduction to Programming and Problem Solving</a></li>
-                <li><span class="label label-default">EPL003</span> Computer Science and Information Systems</li>
-                <li><span class="label label-default">EPL001</span> Introduction to Computer Science</li>
-            </ul>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Courses Section -->
 <section id="awards">
     <div class="container lead">
         <div style="text-align: left; margin-top:10px" class="col-md-12">
+
 
             <i class="noshow" style="display:none;" id="tab-1">
                 <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-5-content').toggle();">Awards  <span class="glyphicon glyphicon-chevron-right"></span></button>
@@ -376,7 +353,10 @@ GitHubActivity.feed({
             <h2>Work Experience</h2>
             <ul>
                 <li>
-                    <span class="label label-success">IIT Guwahati</span> <a href="http://www.iitg.ernet.in/cseweb/tts/">Development of Text to Speech System in Assamese and Manipuri Languages</a>
+                    <span class="label label-success">Cardiff University</span>&nbsp;<span class="label label-warning">Visiting Researcher</span> <a href="https://www.cardiff.ac.uk/computer-science">An In-depth Analysis of Abuses in Social Media-Integrating Cues from Language Behaviour and Networks</a>
+                </li>
+                <li>
+                    <span class="label label-success">IIT Guwahati</span>&nbsp;<span class="label label-warning">Assistant Project Engineer</span> <a href="http://www.iitg.ernet.in/cseweb/tts/">Development of Text to Speech System in Assamese and Manipuri Languages</a>
                 </li>
             </ul>
             </div>
