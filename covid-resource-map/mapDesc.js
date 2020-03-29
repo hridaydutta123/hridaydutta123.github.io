@@ -1,5 +1,4 @@
-
-// Form for 
+// Add form - new resource using marker (form in marker popup) 
 var template = '<form id="popup-form">\
   <table class="popup-table">\
     <tr class="popup-table-row">\
@@ -49,13 +48,14 @@ var firebaseConfig = {
   appId: "1:834271687564:web:e8808a2ba2f14692b39ca9",
   measurementId: "G-S0B6BSJ6LM"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 var database = firebase.database();
 
  
-// Read data
+// Read data from firebase
 var geojsonData = database.ref('geojson');
 geojsonData.on("value", function(snapshot) {
  snapshot.forEach(function(childSnapshot) {
@@ -116,12 +116,13 @@ geojsonData.on("value", function(snapshot) {
  
 });
 
-
-
+// Works on clicking a layer
 function layerClickHandler (e) {
+
   var marker = e.target,
       properties = e.target.feature.properties;
   
+  // Check if the marker is already added
   if (marker.hasOwnProperty('_popup')) {
     console.log('has prop');
 
@@ -135,15 +136,8 @@ function layerClickHandler (e) {
     L.DomUtil.get('value-phone').textContent = marker.feature.properties.phone;
     L.DomUtil.get('button-submit').style.display = "none";
     marker.unbindPopup();
-
-
-    var buttonDelete = L.DomUtil.get('button-delete');
-    L.DomEvent.addListener(buttonDelete, 'click', function (e) {
-      confirm("Are you sure want to delete this marker?");
-      marker.unbindPopup();
-      map.removeLayer(marker);
-    });
   }
+  // Check if the marker is not added
   else
   {
     marker.bindPopup(template);
@@ -151,12 +145,14 @@ function layerClickHandler (e) {
 
     var buttonSubmit = L.DomUtil.get('button-submit');
     L.DomEvent.addListener(buttonSubmit, 'click', function (e) {
+      // Get the values entered in the popup form
       var entity_name = L.DomUtil.get('name').value;
       var entity_type = L.DomUtil.get('typeVal').value;
       var entity_remarks = L.DomUtil.get('remarks').value;
       var entity_opening = L.DomUtil.get('opening').value;
       var entity_closing = L.DomUtil.get('closing').value;
       var entity_phone = L.DomUtil.get('phone').value;
+
 
       L.DomUtil.get('value-name').textContent = entity_name;
       L.DomUtil.get('value-type').textContent = entity_type;
@@ -166,6 +162,7 @@ function layerClickHandler (e) {
       L.DomUtil.get('value-phone').textContent = entity_phone;
       L.DomUtil.get('button-submit').style.display = "none";
 
+      // Add the entered data to marker properties
       marker.feature.properties.name = entity_name;
       marker.feature.properties.type = entity_type;
       marker.feature.properties.remarks = entity_remarks;
@@ -173,8 +170,7 @@ function layerClickHandler (e) {
       marker.feature.properties.closing = entity_closing;
       marker.feature.properties.phone = entity_phone;
 
-      console.log(marker);
-
+      // Add new entry to firebase
       firebase.database().ref('geojson').push({
         lat: marker.feature.geometry.coordinates[0],
         lng: marker.feature.geometry.coordinates[1],
@@ -190,6 +186,7 @@ function layerClickHandler (e) {
       
     });
 
+    // Delete the marker upon clicking on Delete marker button
     var buttonDelete = L.DomUtil.get('button-delete');
     L.DomEvent.addListener(buttonDelete, 'click', function (e) {
       confirm("Are you sure want to delete this marker?");
@@ -208,6 +205,7 @@ var map = L.map('map', {
 });
 
 
+// Code for search bar
 L.control.scale().addTo(map);
 
 // Create a Tile Layer and add it to the map
@@ -234,7 +232,9 @@ navigator.geolocation.getCurrentPosition(function(location) {
   map.setView(new L.LatLng(latlng.lat, latlng.lng), 9);
 
 });
+// --- Code for search bar ends here
 
+// Works on mouseclick on the map
 map.on('click', 
   function(e){
     L.geoJson({
