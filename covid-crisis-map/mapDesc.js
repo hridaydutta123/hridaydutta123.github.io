@@ -1,17 +1,5 @@
-// navigator.geolocation.getCurrentPosition(function(location) {
-//   map.remove();
-//   var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
 
-//   var mymap = L.map('map').setView(latlng, 7)
-//   // L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//   //   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-//   // }).addTo(map);
-//   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png?access_token={accessToken}', {
-//     maxZoom: 18,
-//     accessToken: 'pk.eyJ1IjoiYmJyb29rMTU0IiwiYSI6ImNpcXN3dnJrdDAwMGNmd250bjhvZXpnbWsifQ.Nf9Zkfchos577IanoKMoYQ'
-//   }).addTo(mymap);
-
-// });
+var allMarkers = new L.FeatureGroup();
 
 var template = '<form id="popup-form">\
   <table class="popup-table">\
@@ -35,6 +23,11 @@ var template = '<form id="popup-form">\
       <th class="popup-table-header">Closing time:</th>\
       <td id="value-closing">\
       <input id="closing" type="time"/></td>\
+    </tr>\
+    <tr class="popup-table-row">\
+      <th class="popup-table-header">Phone number:</th>\
+      <td id="value-phone">\
+      <input id="phone" type="text" value="None"/></td>\
     </tr>\
     <tr class="popup-table-row">\
       <th class="popup-table-header">Remarks:</th>\
@@ -69,9 +62,8 @@ geojsonData.on("value", function(snapshot) {
  snapshot.forEach(function(childSnapshot) {
   var childData = childSnapshot.val();
   var id=childData.id;
-  console.log(childData);
 
-  L.geoJson({
+  marker = L.geoJson({
       "type": "FeatureCollection",
       "features": [{
         "type": "Feature",
@@ -107,6 +99,11 @@ geojsonData.on("value", function(snapshot) {
       ' + childData.closing + '</td>\
     </tr>\
     <tr class="popup-table-row">\
+      <th class="popup-table-header">Phone number:</th>\
+      <td id="value-phone">\
+      ' + childData.phone + '</td>\
+    </tr>\
+    <tr class="popup-table-row">\
       <th class="popup-table-header">Remarks:</th>\
       <td id="value-remarks">\
       ' + childData.remarks + '</td>\
@@ -114,12 +111,12 @@ geojsonData.on("value", function(snapshot) {
   </table>');
   }
     }).addTo(map);
- });
+ }); 
 });
 
 
+
 function layerClickHandler (e) {
-  var shelterMarkers = new L.FeatureGroup();
   var marker = e.target,
       properties = e.target.feature.properties;
   
@@ -133,6 +130,7 @@ function layerClickHandler (e) {
     L.DomUtil.get('value-remarks').textContent = marker.feature.properties.remarks;
     L.DomUtil.get('value-opening').textContent = marker.feature.properties.opening;
     L.DomUtil.get('value-closing').textContent = marker.feature.properties.closing;
+    L.DomUtil.get('value-phone').textContent = marker.feature.properties.phone;
     L.DomUtil.get('button-submit').style.display = "none";
     marker.unbindPopup();
 
@@ -156,12 +154,14 @@ function layerClickHandler (e) {
       var entity_remarks = L.DomUtil.get('remarks').value;
       var entity_opening = L.DomUtil.get('opening').value;
       var entity_closing = L.DomUtil.get('closing').value;
+      var entity_phone = L.DomUtil.get('phone').value;
 
       L.DomUtil.get('value-name').textContent = entity_name;
       L.DomUtil.get('value-type').textContent = entity_type;
       L.DomUtil.get('value-remarks').textContent = entity_remarks;
       L.DomUtil.get('value-opening').textContent = entity_opening;
       L.DomUtil.get('value-closing').textContent = entity_closing;
+      L.DomUtil.get('value-phone').textContent = entity_phone;
       L.DomUtil.get('button-submit').style.display = "none";
 
       marker.feature.properties.name = entity_name;
@@ -169,6 +169,7 @@ function layerClickHandler (e) {
       marker.feature.properties.remarks = entity_remarks;
       marker.feature.properties.opening = entity_opening;
       marker.feature.properties.closing = entity_closing;
+      marker.feature.properties.phone = entity_phone;
 
       console.log(marker);
 
@@ -179,20 +180,12 @@ function layerClickHandler (e) {
         type: entity_type,
         opening: entity_opening,
         closing: entity_closing,
+        phone:  entity_phone,
         remarks: entity_remarks
       });
 
 
-      shelterMarkers.addLayer(marker);
-
-      map.on('zoomend', function() {
-          if (map.getZoom() < 9){
-                  map.removeLayer(shelterMarkers);
-          }
-          else {
-                  map.addLayer(shelterMarkers);
-              }
-      });
+      
     });
 
     var buttonDelete = L.DomUtil.get('button-delete');
@@ -212,10 +205,10 @@ var map = L.map('map', {
     zoom: 5
 });
 
+
 L.control.scale().addTo(map);
 
 // Create a Tile Layer and add it to the map
-//var tiles = new L.tileLayer('http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.png').addTo(map);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
@@ -232,7 +225,13 @@ L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   });
 
 setTimeout(function(){$('.pointer').fadeOut('slow');},3400);
+navigator.geolocation.getCurrentPosition(function(location) {
+  var latlng = new L.LatLng(location.coords.latitude, location.coords.longitude);
+  console.log(latlng);
+  // map.panTo(new L.LatLng(latlng.lat, latlng.lng), 18 );
+  map.setView(new L.LatLng(latlng.lat, latlng.lng), 9);
 
+});
 
 map.on('click', 
   function(e){
