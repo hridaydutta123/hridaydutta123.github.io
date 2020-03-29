@@ -1,6 +1,5 @@
 
-var allMarkers = new L.FeatureGroup();
-
+// Form for 
 var template = '<form id="popup-form">\
   <table class="popup-table">\
     <tr class="popup-table-row">\
@@ -108,10 +107,13 @@ geojsonData.on("value", function(snapshot) {
       <td id="value-remarks">\
       ' + childData.remarks + '</td>\
     </tr>\
-  </table>');
+  </table>\
+  <button id="button-del" type="button">Delete marker</button>\
+  ');
   }
     }).addTo(map);
  }); 
+ 
 });
 
 
