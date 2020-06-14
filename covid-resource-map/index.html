@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
     <link rel="stylesheet" href="style.css" />
     <style type="text/css">
 	span {
@@ -13,14 +13,22 @@
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
-        <div class="navbar-collapse collapse" style="text-align: center;">
-          <h3>Covid Crisis Map</h3>
+        <div class="header">
+          <a href="#default" class="logo">Covid-19 Crisis Map</a>
+        </div>
+        <b>HOW TO USE:</b><br>
+          <b>1.</b> The web app will automatically point the map to your current location.<br>
+          <b>2.</b> You can also click on the search button on the left side to point the map to any other location. Search queries can be any state, city, street etc. <br>
+          <b>3.</b> Mouse click on the map will create a marker. Click on the marker to enter the properties of the resource. Current properties are: Name, Type (Grocery Shop, Hospital, Gas station), Opening time, Closing time, Phone number, Added by and Remarks.<br>
+          <b>4.</b> Click on Save Changes button to save the properties of the marker. <br>
+          <b>5. </b> The marker will be saved on the same location. You can click on any marker to see the its properties.
         </div>
       </div>
     </div>
     </div>
     <div id="map"></div>
-    <div class='pointer'><span><h1>&#8592; Click search button to navigate to a particular point</h1></span></div>
+
+    <div class='pointer'></div>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-auth.js"></script>
@@ -30,7 +38,7 @@
          https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-analytics.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="https://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet/0.0.1-beta.5/esri-leaflet.js"></script>
     <script src="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn-geoweb.s3.amazonaws.com/esri-leaflet-geocoder/0.0.1-beta.5/esri-leaflet-geocoder.css">
