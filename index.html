@@ -102,8 +102,8 @@ GitHubActivity.feed({
                     <a onclick="javascript:reset_menus();$('#tab-2-content').show();" href="#news">News</a>
                 </li>-->
                 <li class="page-scroll">
-                <a href="image_gallery.html">Gallery</a>
-
+                <a data-toggle="modal" data-target="#myModal">Students</a>
+                
                 <li class="page-scroll">
                 <a href="#publications">Publications</a>
                     
@@ -185,7 +185,86 @@ GitHubActivity.feed({
 
     </div>
 </section>
-    
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Students</h3>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Current students</h4>
+        <table  align="center" style="margin: 0px auto;" class="table table-striped">
+        <thead>
+          <tr>
+            <th style="text-align:center">Name</th>
+            <th style="text-align:center">Current position</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td><a href="#">Pari</a></td>
+            <td>Undergraduate, Deakin University</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>Past students</h4>
+        <table  align="center" style="margin: 0px auto;" class="table table-striped">
+        <thead>
+          <tr>
+            <th style="text-align:center">Name</th>
+            <th style="text-align:center">Current position</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td><a href="https://www.linkedin.com/in/parthmshah1302/">Parth Shah</a></td>
+            <td>MS Computer Science, Arizona State University, USA</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.linkedin.com/in/prajata-roy-255814159/">Prajata Roy</a></td>
+            <td>MS Computer Science, New York University, USA</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.linkedin.com/in/quincy-t-9530011b8">Quincy Taylor</a></td>
+            <td>MPhil Advanced Computer Science, University of Cambridge</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.linkedin.com/in/amartyasaikia/">Amartya Saikia</a></td>
+            <td>Senior Project Associate, Indian Institute of Science (IISc), India</td>
+          </tr>
+          <tr>
+            <td><a href="https://srm1071.github.io/">Suraj Mandal</a></td>
+            <td>PhD scholar (PMRF), IIT Kanpur, India</td>
+          </tr>
+          <tr>
+            <td><a href="https://www.linkedin.com/in/kulenduchakraborty">Kulendu Kashyap Chakraborty</a></td>
+            <td>Research Assistant, IIT Jodhpur, India</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+
 <!-- Home Section -->
 <section id="intro">
     <div class="container lead">
