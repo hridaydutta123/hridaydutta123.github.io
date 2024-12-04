@@ -102,7 +102,8 @@ GitHubActivity.feed({
                     <a onclick="javascript:reset_menus();$('#tab-2-content').show();" href="#news">News</a>
                 </li>-->
                 <li class="page-scroll">
-                <a data-toggle="modal" data-target="#myModal">Students</a>
+                <a data-toggle="modal" data-target="#students">Students</a>
+
                 
                 <li class="page-scroll">
                 <a href="#publications">Publications</a>
@@ -111,6 +112,10 @@ GitHubActivity.feed({
                 <li class="page-scroll">
                     <a href="#awards">Selected Awards</a>
                 </li>
+
+                <li class="page-scroll">
+                <a data-toggle="modal" data-target="#teaching">Teaching</a>
+
                 <li class="page-scroll">
                     <a onclick="javascript:reset_menus();$('#tab-4-content').show();" href="#media">Media Coverage</a>
                 </li>
@@ -126,6 +131,8 @@ GitHubActivity.feed({
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
+
+
 
         
 
@@ -186,7 +193,7 @@ GitHubActivity.feed({
     </div>
 </section>
 
-<div class="modal" id="myModal">
+<div class="modal" id="students">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -217,7 +224,7 @@ GitHubActivity.feed({
 
       <!-- Modal body -->
       <div class="modal-body">
-        <h4>Past students</h4>
+        <h4>Past students (for whom I have submitted LOR)</h4>
         <table  align="center" style="margin: 0px auto;" class="table table-striped">
         <thead>
           <tr>
@@ -226,7 +233,11 @@ GitHubActivity.feed({
           </tr>
         </thead>
         <tbody>
-            <tr>
+          <tr>
+            <td><a href="https://www.linkedin.com/in/subrat-kishore-dutta-70a9a316b">Subrat Kishore Dutta</a></td>
+            <td>PhD scholar, CISPA, Germany</td>
+          </tr>
+          <tr>
             <td><a href="https://www.linkedin.com/in/parthmshah1302/">Parth Shah</a></td>
             <td>MS Computer Science, Arizona State University, USA</td>
           </tr>
@@ -265,6 +276,59 @@ GitHubActivity.feed({
 </div>
 
 
+<div class="modal" id="teaching">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="modal-title">Teaching</h3>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <h4>At Deakin University</h4>
+        <table  align="center" style="margin: 0px auto;" class="table table-striped">
+        <thead>
+          <tr>
+            <th style="text-align:center">Course</th>
+            <th style="text-align:center">Duration</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr>
+            <td><a href="https://www.deakin.edu.au/courses/unit?unit=SIT738">Secure Coding (SIT738)</a></td>
+            <td>2024-T2</td>
+          </tr>
+
+            <tr>
+            <td><a href="https://www.deakin.edu.au/courses/unit?unit=SIT763">Cyber Security Management (SIT763)</a></td>
+            <td>2024-T3</td>
+          </tr>
+
+            <tr>
+            <td><a href="https://www.deakin.edu.au/courses-search/unit.php?unit=SIT753">Professional Practice in Information Technology (SIT753)</a></td>
+            <td>2024-T2</td>
+          </tr>
+
+            <tr>
+            <td><a href="https://www.deakin.edu.au/courses/unit?unit=SIT764">Team Project (A) - Project Management and Practices (SIT764)</a></td>
+            <td>2024-T3</td>
+          </tr>
+        </tbody>
+        </table>
+       </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
 <!-- Home Section -->
 <section id="intro">
     <div class="container lead">
@@ -283,9 +347,8 @@ GitHubActivity.feed({
             <div class="allshow" style="display:none;" id="tab-1-content">
             <hr class="star-primary">
             <h2>Updates</h2>
-
-            <span class="badge badge-danger">New</span>&nbsp;I am looking for some research interns (remote) from any level (Postdoc, PhD or undergraduate/postgraduate) who are interested in gaining some research experience to work at the intersection of cybercrime, security and social networks. The expected outcome of the experience should be an interesting research paper or a cool open-source project. If this is something that excites you, please send your updated CV to any of the above email addresses or to <a href="mailto:lab.cysoc@protonmail.com">lab.cysoc@protonmail.com</a>.<br>
-
+            <span class="badge badge-danger">New</span>&nbsp;<b>I am looking for some undergraduate/postgradute research interns (remote) who are interested in gaining research experience to work at the intersection of cybercrime, security and social networks. The expected outcome of the experience should be an interesting research paper or a cool open-source project. If this is something that excites you, please send your updated CV to <a href="mailto:lab.cysoc@gmail.com">lab.cysoc@gmail.com</a></b>.<br>
+            <span class="badge badge-danger">New</span>&nbsp;<a href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-30M</a> and <a href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-100K</a>, two large-scale multilingual comment datasets from YouTube are now available on HuggingFace.<br/>
             <span class="badge badge-danger">New</span>&nbsp;Our paper ModZoo: A Large-Scale Study of Modded Android Apps and their Markets is accepted to <a href="https://ecrimeresearch.org/ecrime-symposium/">Symposium on Electronic Crime Research (eCrime 2024)</a>.<br>
 
             
@@ -345,7 +408,7 @@ GitHubActivity.feed({
                 <a target="_blank" href="https://en.wikipedia.org/wiki/H-index"><font color=white>h-index</font></a>: 8
             </span>&nbsp;
             <span class="label label-warning">
-               <a target="_blank" href="https://scholar.google.co.in/citations?user=4UrQjwUAAAAJ&hl=en"><font color=white>Citations</font></a>: 252
+               <a target="_blank" href="https://scholar.google.co.in/citations?user=4UrQjwUAAAAJ&hl=en"><font color=white>Citations</font></a>: 259
             </span>&nbsp;
            
             </h4>
@@ -433,6 +496,7 @@ Nature Mental Health Research
         <hr class="star-primary">
         <h2>Professional services</h2>
         <ul>
+        <li><span class="label label-success">Reviewer</span> <a target="_blank" href="https://pakdd2025.org/">Pacific-Asia Conference on Knowledge Discovery and Data Mining (PAKDD)</li>    
         <li><span class="label label-success">Reviewer</span> <a target="_blank" href="https://www.nature.com/npjmentalhealth/">Nature Mental Health Research</li>
         <li><span class="label label-success">Reviewer</span> <a target="_blank" href="https://ieeexplore.ieee.org/xpl/aboutJournal.jsp?punumber=8782664">IEEE Open Journal of the Computer Society</li>
         <li><span class="label label-success">Poster Co-Chair</span> <a target="_blank" href="https://www.buildsec.org/">IEEE Building a Secure Empowered Cyberspace (BuildSEC 2024)</li>
