@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interested to join?</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #333;
+            color: #fff;
+        }
+        
+        .game-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: none;
+            background-color: rgba(0, 30, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .scope-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 5;
+            background: radial-gradient(
+                circle 300px at center, 
+                transparent 0%, 
+                transparent 280px, 
+                rgba(0, 0, 0, 0.7) 300px
+            );
+        }
+        
+        .crosshair {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            pointer-events: none;
+            z-index: 6;
+            transform: translate(-50%, -50%);
+        }
+        
+        .crosshair::before, .crosshair::after {
+            content: '';
+            position: absolute;
+            background-color: rgba(255, 0, 0, 0.7);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .crosshair::before {
+            width: 2px;
+            height: 40px;
+        }
+        
+        .crosshair::after {
+            width: 40px;
+            height: 2px;
+        }
+        
+        .crosshair-circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+            height: 30px;
+            border: 1px solid rgba(255, 0, 0, 0.7);
+            border-radius: 50%;
+        }
+        
+        .target {
+            position: absolute;
+            transition: transform 0.1s;
+            cursor: none;
+        }
+        
+        .bazinga {
+            position: absolute;
+            z-index: 4;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s, transform 0.3s;
+            transform: translate(-50%, -50%) scale(0.8);
+        }
+        
+        .bazinga.show {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .score {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            z-index: 7;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+        
+        .prompt-container {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 8;
+        }
+        
+        .prompt {
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .prompt.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .keyword {
+            color: blue;
+            font-weight: bold;
+        }
+        
+        .intern {
+            border-left: 4px solid #3498db;
+        }
+        
+        .phd {
+            border-left: 4px solid #2ecc71;
+        }
+        
+        .postdoc {
+            border-left: 4px solid #f39c12;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container" id="gameContainer">
+        <!-- The target image (cartoon avatar) -->
+        <img id="target" class="target" alt="Target" src="images/cartoon.png">
+        
+        <!-- The bazinga image -->
+        <img id="bazinga" class="bazinga" alt="Bazinga" src="images/bazinga.png">
+    </div>
+    
+    <div class="prompt-container">
+        <div id="prompt" class="prompt"></div>
+    </div>
+    
+    <div class="score" id="score">Score: 0</div>
+    
+    <div class="scope-overlay" id="scopeOverlay"></div>
+    <div class="crosshair" id="crosshair">
+        <div class="crosshair-circle"></div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gameContainer = document.getElementById('gameContainer');
+            const target = document.getElementById('target');
+            const bazinga = document.getElementById('bazinga');
+            const scoreElement = document.getElementById('score');
+            const crosshair = document.getElementById('crosshair');
+            const scopeOverlay = document.getElementById('scopeOverlay');
+            const promptElement = document.getElementById('prompt');
+            
+            let score = 0;
+            let currentPromptLevel = 0; // 0: no prompt, 1: intern, 2: PhD, 3: Postdoc
+            
+            // Set initial position and size
+            positionAndSizeTarget();
+            
+            // Mouse movement for scope effect
+            document.addEventListener('mousemove', function(e) {
+                // Move crosshair
+                crosshair.style.left = `${e.clientX}px`;
+                crosshair.style.top = `${e.clientY}px`;
+                
+                // Move scope overlay
+                scopeOverlay.style.background = `radial-gradient(
+                    circle 300px at ${e.clientX}px ${e.clientY}px, 
+                    transparent 0%, 
+                    transparent 280px, 
+                    rgba(0, 0, 0, 0.7) 300px
+                )`;
+            });
+            
+            // Click event for the whole document
+            document.addEventListener('click', function(e) {
+                // Check if the click is on the target
+                const targetRect = target.getBoundingClientRect();
+                if (
+                    e.clientX >= targetRect.left && 
+                    e.clientX <= targetRect.right && 
+                    e.clientY >= targetRect.top && 
+                    e.clientY <= targetRect.bottom
+                ) {
+                    // Hit!
+                    score++;
+                    scoreElement.textContent = `Score: ${score}`;
+                    
+                    // Update prompt based on score
+                    updatePrompt();
+                    
+                    // Show bazinga graphic
+                    bazinga.style.left = `${e.clientX}px`;
+                    bazinga.style.top = `${e.clientY}px`;
+                    bazinga.classList.add('show');
+                    
+                    // Hide target briefly
+                    target.style.display = 'none';
+                    
+                    // Move target to new position and show again
+                    setTimeout(() => {
+                        positionAndSizeTarget();
+                        target.style.display = 'block';
+                        
+                        // Hide bazinga after a delay
+                        setTimeout(() => {
+                            bazinga.classList.remove('show');
+                        }, 800);
+                    }, 400);
+                }
+            });
+            
+            // Function to position and size target randomly
+            function positionAndSizeTarget() {
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+                
+                // Random size between 80px and 200px
+                const minSize = 80;
+                const maxSize = 200;
+                const randomSize = Math.floor(Math.random() * (maxSize - minSize + 1) + minSize);
+                
+                // Apply the size
+                target.style.width = `${randomSize}px`;
+                target.style.height = `${randomSize}px`;
+                
+                // Calculate random position within bounds
+                const maxX = windowWidth - randomSize;
+                const maxY = windowHeight - randomSize;
+                
+                const randomX = Math.floor(Math.random() * maxX);
+                const randomY = Math.floor(Math.random() * maxY);
+                
+                target.style.left = `${randomX}px`;
+                target.style.top = `${randomY}px`;
+            }
+            
+            // Function to update the prompt based on the score
+            function updatePrompt() {
+                let newPromptLevel = 0;
+                
+                if (score === 1) {
+                    newPromptLevel = 1; // Intern
+                    promptElement.innerHTML = "If you are interested in joining as an <span class='keyword'>intern</span>, please send your CV and a sample of your best coding work to <span class='keyword'><a href='mailto:lab.cysoc@gmail.com'>lab.cysoc@gmail.com</a></span>!";
+                    promptElement.className = "prompt intern";
+                } else if (score == 2) {
+                    newPromptLevel = 2; // PhD
+                    promptElement.innerHTML = "If you are interested in joining as an <span class='keyword'>PhD</span>, please send your CV, SOP and a sample of your best coding work to <span class='keyword'><a href='mailto:lab.cysoc@gmail.com'>lab.cysoc@gmail.com</a></span>!";
+                    promptElement.className = "prompt phd";
+                } else if (score == 3) {
+                    newPromptLevel = 3; // Postdoc
+                    promptElement.innerHTML = "If you are interested in joining as an <span class='keyword'>Postdoc</span>, please send your CV, SOP and a list of recent publications to <span class='keyword'><a href='mailto:lab.cysoc@gmail.com'>lab.cysoc@gmail.com</a></span>!";
+                    promptElement.className = "prompt postdoc";
+                } 
+                
+                // Only show animation if the prompt level changed
+                if (newPromptLevel !== currentPromptLevel) {
+                    currentPromptLevel = newPromptLevel;
+                    
+                    if (newPromptLevel > 0) {
+                        // Reset animation by removing and re-adding class
+                        promptElement.classList.remove('show');
+                        
+                        // Force browser to acknowledge the removal
+                        void promptElement.offsetWidth;
+                        
+                        // Add the class back
+                        promptElement.classList.add('show');
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
