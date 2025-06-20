@@ -44,19 +44,14 @@
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/menucollapse.js"></script>
-<script type="text/javascript" src="js/arrow78.js"></script>
 <script type="text/javascript" src="js/custom.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-89151601-1', 'auto');
-  ga('send', 'pageview');
-
+    $(document).ready(function () {
+        $('.allshow').show(); $('.noshow').hide(); $('.collapseshow').show(); $('.expandshow').hide(); // Always show elements with class 'allshow'
+    });
 </script>
+
 
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">
 <link rel="stylesheet" href="css/github-activity-0.1.5.min.css">
@@ -97,9 +92,7 @@ GitHubActivity.feed({
                 <li class="page-scroll">
                 <a href="#home">Home</a>
                 </li>
-                <!--<li class="page-scroll">
-                    <a onclick="javascript:reset_menus();$('#tab-2-content').show();" href="#news">News</a>
-                </li>-->
+                
                 <li class="page-scroll">
                 <a href="interest.html">Opportunities</a>
 
@@ -177,19 +170,6 @@ GitHubActivity.feed({
             <i class="fa fa-map-marker fa-2x"></i> <a target="_blank" href="https://tinyurl.com/where-to-find-hsd">https://tinyurl.com/where-to-find-hsd</a>
             </h4>
         </div>
-
-       <!--  <i class="twittertop" style="display:none;" id="t1">
-        <div id="news" tyle="text-align: left"  class="col-md-4">&nbsp;
-            <center><a class="twitter-timeline" data-width="300" data-height="300" href="https://twitter.com/hridaydutta123?ref_src=twsrc%5Etfw">Tweets by hridaydutta123</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></center>
-        </div>
-        </i> -->
-        <!--<p><a href="#" class="btn btn-primary">More &raquo;</a></p>-->
-        <i class="expandshow" style="display:none;" id="tab-1">
-            <button class="btn btn-primary btn-lg btn-block" style="width: 100%;" onclick="javascript:$('.allshow').show();$('.noshow').hide();$('.collapseshow').show();$('.expandshow').hide();">EXPAND ALL SECTIONS <span class="glyphicon glyphicon-chevron-down"></span></button>
-        </i>
-        <i class="collapseshow" style="display:none;" id="tab-1">
-            <button class="btn btn-primary btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('.allshow').hide();$('.noshow').show();$('.expandshow').show();$('.collapseshow').hide();">COLLAPSE ALL SECTIONS <span class="glyphicon glyphicon-chevron-up"></span></button>
-        </i>
 
     </div>
 </section>
@@ -349,6 +329,8 @@ GitHubActivity.feed({
 </div>
 </div>
 
+
+
 <!-- Home Section -->
 <section id="intro">
     <div class="container lead">
@@ -360,23 +342,36 @@ GitHubActivity.feed({
             </i>
             <hr class="star-primary">
             <h2>Useful links</h2>
-
-
-            <span class="label label-primary">Map</span>&nbsp; <a href="https://tinyurl.com/know-gift-city">GIFT City, India: Your Map-Based Guide</a><br>
-            <span class="label label-primary">Jobs</span>&nbsp; <a href="https://hridaydutta123.github.io/cyberjobsindia/">Cyber jobs in India</a><br>
             
-            <div class="allshow" style="display:none;" id="tab-1-content">
+            
+            <span class="label label-primary">Guide</span>&nbsp; <a href="https://tinyurl.com/know-gift-city">GIFT City, India: Your
+                Map-Based Guide</a><br>
+            <span class="label label-primary">Job Preparation</span>&nbsp; <a
+                href="https://github.com/DGCC-Club/prepare-the-hard-way">Prepare the Hard Way (SQL)</a><br>
+            <span class="label label-primary">Job Search (Cyber)</span>&nbsp; <a
+                href="https://hridaydutta123.github.io/cyberjobsindia/">Cyber
+                jobs in India</a><br>
+            
             <hr class="star-primary">
             <h2>Updates</h2>
-            <span class="label label-info">New</span>&nbsp;<b>I am looking for PhD students and research interns (remote) who are interested to work at the intersection of cybercrime, security and social networks. Please send your updated CV to <a href="mailto:lab.cysoc@gmail.com">lab.cysoc@gmail.com</a></b>.<br>
-            <span class="label label-info">New</span>&nbsp;Our paper Backlinks for Sale: A First Look into Marketplaces Selling Wikipedia Backlinks is accepted to <a href="https://meta.wikimedia.org/wiki/Wiki_Workshop_2025">12th Annual Wiki Workshop (WikiWorkshop 2025)</a>.<br>
-            <span class="label label-info">New</span>&nbsp;Our paper App-solutely Modded: The rift between modded app market operators and original developers is accepted to <a href="https://asiaccs2025.hust.edu.vn/">ACM ASIA Conference on Computer and Communications Security (ACM ASIACCS 2025)</a>.<br>
-            <span class="label label-info">New</span>&nbsp;Our paper Half-life of Youtube News Videos: Diffusion Dynamics and Predictive Factors is accepted to <a href="https://lod2025.icas.events/">The 11th International Conference on Machine Learning, Optimization, and Data Science (LOD 2025)</a>.<br>
-            <span class="label label-info">New</span>&nbsp;<a href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-30M</a> and <a href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-100K</a>, two large-scale multilingual comment datasets from YouTube are now available on HuggingFace.<br/>
+            <span class="label label-info">New</span>&nbsp;<b>I am looking for PhD students and research interns (remote) who are
+                interested to work at the intersection of cybercrime, security and social networks. Please send your updated CV to
+                <a href="mailto:lab.cysoc@gmail.com">lab.cysoc@gmail.com</a></b>.<br>
+            <span class="label label-info">New</span>&nbsp;Our paper Backlinks for Sale: A First Look into Marketplaces Selling
+            Wikipedia Backlinks is accepted to <a href="https://meta.wikimedia.org/wiki/Wiki_Workshop_2025">12th Annual Wiki
+                Workshop (WikiWorkshop 2025)</a>.<br>
+            <span class="label label-info">New</span>&nbsp;Our paper App-solutely Modded: The rift between modded app market
+            operators and original developers is accepted to <a href="https://asiaccs2025.hust.edu.vn/">ACM ASIA Conference on
+                Computer and Communications Security (ACM ASIACCS 2025)</a>.<br>
+            <span class="label label-info">New</span>&nbsp;Our paper Half-life of Youtube News Videos: Diffusion Dynamics and
+            Predictive Factors is accepted to <a href="https://lod2025.icas.events/">The 11th International Conference on Machine
+                Learning, Optimization, and Data Science (LOD 2025)</a>.<br>
+            <span class="label label-info">New</span>&nbsp;<a
+                href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-30M</a> and <a
+                href="https://huggingface.co/datasets/hridaydutta123/YT-100K">YT-100K</a>, two large-scale multilingual comment
+            datasets from YouTube are now available on HuggingFace.<br />
             
-
-            
-            
+            <div class="allshow" style="display:none;" id="tab-1-content">
             
             <hr class="star-primary">
             <h2>About Me</h2>
@@ -472,8 +467,10 @@ GitHubActivity.feed({
     <div class="container lead">
         <div style="text-align: left; margin-top:10px" class="col-md-12">
 
-            <i class="noshow" style="display:none;" id="tab-6">
-                <button class="btn btn-default btn-lg btn-block"  style="display: block; width: 100%;" onclick="javascript:$('#tab-6-content').toggle();">Service  <span class="glyphicon glyphicon-chevron-right"></span></button>
+            <i class="noshow" style="display:none;" id="tab-1">
+                <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;"
+                    onclick="javascript:$('#tab-4-content').toggle();">Patent <span
+                        class="glyphicon glyphicon-chevron-right"></span></button>
             </i>
              <div class="allshow" style="display:none;" id="tab-5-content">
 
@@ -492,14 +489,14 @@ GitHubActivity.feed({
 </section>
 
 <!-- Research Section -->
-<section id="publications">
+<section id="services">
     <div class="container lead">
         <div style="text-align: left; margin-top:10px" class="col-md-12">
 
 <i class="noshow" style="display:none;" id="tab-3">
             <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('#tab-3-content').toggle();">Publications  <span class="glyphicon glyphicon-chevron-right"></span></button>
         </i>
-        <div class="allshow" style="display:none;" id="tab-3-content">
+        <div class="allshow" style="display:none;" id="tab-4-content">
         <hr class="star-primary">
         <h2>Professional services</h2>
         <ul>
