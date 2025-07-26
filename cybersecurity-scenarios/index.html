@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Scenario Trainer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a26;
+            --surface-glass: rgba(255, 255, 255, 0.05);
+            --surface-elevated: rgba(255, 255, 255, 0.08);
+            --border-glass: rgba(255, 255, 255, 0.1);
+            --border-accent: rgba(0, 255, 157, 0.3);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            
+            --accent-primary: #00ff9d;
+            --accent-secondary: #0066ff;
+            --accent-gradient: linear-gradient(135deg, #00ff9d 0%, #0066ff 100%);
+            --danger: #ff4757;
+            --warning: #ffa502;
+            --success: #2ed573;
+            
+            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 25px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 10px 60px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 30px rgba(0, 255, 157, 0.15);
+            
+            --blur-glass: blur(20px);
+            --blur-heavy: blur(40px);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(0, 255, 157, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-20px) translateY(-20px); }
+            50% { transform: translateX(20px) translateY(-10px); }
+            75% { transform: translateX(-10px) translateY(20px); }
+        }
+
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            filter: var(--blur-heavy);
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 40px rgba(0, 255, 157, 0.3);
+        }
+
+        .header .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+        }
+
+        .progress-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .progress-card {
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: var(--blur-glass);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            box-shadow: var(--shadow-md), var(--shadow-glow);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+            transform-origin: left;
+        }
+
+        .progress-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .progress-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-gradient);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--bg-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .progress-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .progress-subtext {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, var(--danger) 0%, #e74c3c 100%);
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reset-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .reset-btn:hover::before {
+            left: 100%;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Card Container */
+        #card-container {
+            position: relative;
+            min-height: 600px;
+            perspective: 1000px;
+        }
+
+        /* Card Styles */
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            /* UPDATED: Constrain width and center card */
+            max-width: 800px;
+            margin: 0 auto; 
+            
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: var(--blur-glass);
+            border-radius: 24px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition-smooth);
+            transform-origin: center center;
+            cursor: grab;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--accent-gradient);
+            opacity: 0.6;
+        }
+
+        .card:active {
+            cursor: grabbing;
+        }
+
+        .card.dragging {
+            z-index: 10;
+            transition: none;
+        }
+
+        .card-category {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(0, 255, 157, 0.1);
+            color: var(--accent-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 157, 0.2);
+        }
+
+        .card-category::before {
+            content: '●';
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+
+        .card h3 {
+            color: var(--accent-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-glass);
+            position: relative;
+        }
+
+        .card h3::before {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+        }
+
+        .response {
+            display: none;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px dashed var(--border-glass);
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .response ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .response li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .response li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-primary);
+            font-weight: bold;
+        }
+
+        .response strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .actions {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: var(--blur-glass);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-reveal {
+            background: var(--accent-gradient);
+            color: var(--bg-primary);
+            box-shadow: var(--shadow-sm), 0 0 20px rgba(0, 255, 157, 0.3);
+        }
+
+        .btn-reveal:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md), 0 0 30px rgba(0, 255, 157, 0.4);
+        }
+
+        .btn-correct {
+            background: rgba(46, 213, 115, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(46, 213, 115, 0.3);
+        }
+
+        .btn-correct:hover {
+            background: var(--success);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-review {
+            background: rgba(255, 71, 87, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+        }
+
+        .btn-review:hover {
+            background: var(--danger);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Swipe Indicators */
+        .swipe-indicator {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            font-weight: bold;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .swipe-indicator.right {
+            right: 2rem;
+            color: var(--success);
+            text-shadow: 0 0 20px var(--success);
+        }
+
+        .swipe-indicator.left {
+            left: 2rem;
+            color: var(--danger);
+            text-shadow: 0 0 20px var(--danger);
+        }
+
+        /* Completion Message */
+        .completion-message {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--surface-glass);
+            border: 1px solid var(--border-glass);
+            backdrop-filter: var(--blur-glass);
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .completion-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-gradient);
+        }
+
+        .completion-message h2 {
+            font-size: 2.5rem;
+            background: var(--accent-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .completion-message p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Loading Animation */
+        .loading-dots {
+            display: inline-flex;
+            gap: 0.25rem;
+        }
+
+        .loading-dots span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            animation: loadingBounce 1.4s infinite ease-in-out both;
+        }
+
+        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes loadingBounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .app-container {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .progress-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .card {
+                padding: 1.5rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--surface-glass);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--border-glass);
+        }
+        .bottom-right {
+      position: fixed; /* or absolute */
+      bottom: 0;
+      right: 0;
+      margin: 20px; /* optional: spacing from edges */
+      background-color: #333;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+    }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+
+        <header class="header">
+            <h1>Cybersecurity Scenarios</h1>
+            <p class="subtitle">Practice incident response with real-world scenarios<p>
+            <div class="progress-section">
+                <div class="progress-card">
+                    <div class="progress-icon">
+                        <span id="progress-counter">0</span>
+                    </div>
+                    <div>
+                        <div class="progress-text">Completed Scenarios</div>
+                        <div class="progress-subtext">Out of <span id="total-counter">0</span> total</div>
+                    </div>
+                </div>
+                <button id="reset-button" class="reset-btn">
+                    Reset Progress
+                </button>
+            </div>
+        </header>
+
+        <main id="card-container">
+            <!-- Dynamic cards will be loaded here -->
+
+        </main>
+        <div class="bottom-right"><script type="text/javascript" src="https://counter.websiteout.com/js/7/10/0/0"></script></div>
+    </div>
+    
+    <script>
+
+const jsonData = {
+    "detailed_scenarios": [
+        {
+            "scenario_number": 1,
+            "title": "EDR Alert - Word Document Executing powershell.exe",
+            "description": "This is a classic and highly suspicious alert. Microsoft Word has no legitimate reason to execute PowerShell. This is a common \"Living Off the Land\" (LOLBin) technique used by attackers to execute malicious code, often to bypass application whitelisting and download further payloads.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "The first priority is to prevent potential damage. Isolate the host from the network using the EDR's containment feature. This stops any active command-and-control (C2) communication or lateral movement."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Analyze the Process Chain and Command Line",
+                    "details": [
+                        "Confirm the parent process is `winword.exe` and the child is `powershell.exe`.",
+                        "This is the most critical evidence. Examine the PowerShell command-line arguments. Look for red flags like `-enc` (encoded command), `-nop` (NoProfile), `-noni` (NonInteractive), or `IEX (New-Object Net.WebClient).DownloadString(...)`.",
+                        "If the command is Base64 encoded, decode it to reveal the malicious script."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Examine Script Block and Module Logging",
+                    "details": [
+                        "If PowerShell script block logging is enabled (it should be!), review the logs (Event ID 4104) on the host. This will show the de-obfuscated script that was executed, even if it was encoded on the command line.",
+                        "Analyze the script's purpose: Is it downloading a file? Creating persistence? Stealing data?"
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Analyze Files and Network Activity",
+                    "details": [
+                        "Retrieve the original Word document. Get its hash and submit to a sandbox to analyze the malicious macro.",
+                        "If the script downloaded a payload, retrieve that file from disk or proxy logs. Analyze this second-stage payload to understand its purpose (e.g., backdoor, Cobalt Strike beacon, ransomware)."
+                    ]
+                },
+                {
+                    "step_number": 5,
+                    "step_title": "Scope, Remediate, and Recover",
+                    "details": [
+                        "Use IOCs (file hashes, C2 domains/IPs) to hunt for other affected systems.",
+                        "Re-image the compromised machine. Reset the user's credentials.",
+                        "Block all IOCs at the network perimeter and in security tools.",
+                        "Find the initial entry vector (likely a phishing email) and remove it from all inboxes."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 2,
+            "title": "EDR Alert - LSASS memory access from a non-system process.",
+            "description": "This is a high-confidence indicator of credential dumping, a technique used to steal passwords and hashes from memory. The LSASS.exe process stores user credentials, and only a few legitimate system processes should ever access it. This requires an immediate and full incident response.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Isolate the host from the network IMMEDIATELY. This is a critical first step to prevent the attacker from using the stolen credentials for lateral movement."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Analyze the Alerting Process",
+                    "details": [
+                        "Identify the source process that accessed LSASS. Common culprits include `rundll32.exe`, `powershell.exe`, or custom malware.",
+                        "Examine the command-line arguments of the source process. This might reveal the specific tool used (e.g., Mimikatz, ProcDump).",
+                        "Preserve the malicious executable for forensic analysis. Get its hash and check threat intelligence feeds."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Assume Compromise and Hunt for Lateral Movement",
+                    "details": [
+                        "Assume the attacker successfully obtained credentials.",
+                        "Immediately begin scrutinizing authentication logs (Windows Security Events 4624/4625) originating from the compromised host. Look for successful logins to other servers or workstations.",
+                        "Check for suspicious remote service creation (`sc.exe`), PsExec usage (new `PSEXESVC.exe` service), or unusual WMI/WinRM activity.",
+                        "Query EDR/SIEM for the malicious file hash or process name appearing on other systems."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "Reset passwords for ALL user accounts that were logged into the compromised host at the time of the incident, especially privileged ones.",
+                        "The compromised machine must be reimaged from a known-good source. It cannot be trusted.",
+                        "Block any identified C2 IPs or domains at the network perimeter."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 3,
+            "title": "An unknown executable is written to C:\\Users\\Public\\.",
+            "description": "The C:\\Users\\Public\\ directory (and its subdirectories) is a common location for attackers to drop second-stage payloads. It is writable by all users, making it an easy target. Any non-standard executable appearing here is highly suspicious.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Triage and Initial Analysis",
+                    "details": [
+                        "Retrieve the suspicious file. Do NOT execute it.",
+                        "Get the file's SHA256 hash. Check it against threat intelligence platforms like VirusTotal and other feeds.",
+                        "Submit the file to a sandbox environment (e.g., ANY.RUN) to observe its behavior and extract Indicators of Compromise (IOCs) like network callbacks or created files."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Source",
+                    "details": [
+                        "How did the file get there? Analyze EDR process events to find the parent process that wrote the file to disk.",
+                        "Was it downloaded by a browser? Check browser history and download logs.",
+                        "Was it dropped by a script (e.g., PowerShell)? Check script block and module logs.",
+                        "Was it delivered via an email attachment? Correlate the file creation time with email logs."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Containment and Scoping",
+                    "details": [
+                        "If the file is confirmed malicious, isolate the host to prevent further action.",
+                        "Use the file hash and any IOCs from the sandbox analysis to hunt across the environment. Did any other hosts receive or execute this file?",
+                        "Check if the file has already executed on the initial host. Look for child processes, new network connections, or registry changes originating from the suspicious file."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "If the file executed, re-image the machine.",
+                        "If it did not execute, delete the file and address the root cause (e.g., remove the malicious email, patch the vulnerable application).",
+                        "Block the file hash in your EDR/AV solution.",
+                        "Block any associated network IOCs (IPs, domains) at the firewall/proxy."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 4,
+            "title": "EDR agent stops sending heartbeats from a critical server.",
+            "description": "An EDR agent going offline, especially on a critical asset, is a potential indicator of tampering. Attackers often attempt to disable security tools to operate undetected. This must be investigated urgently, while also considering operational causes.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Verify Host and Service Status",
+                    "details": [
+                        "First, check if the server is online. Ping it or check its status in your virtualization console. It might simply be powered off or have lost network connectivity.",
+                        "If the server is online, attempt to log in (via console or remote access) and check the status of the EDR agent's service. Is it running? (`sc query <edr_service_name>`)",
+                        "Check the system's event logs for any unexpected reboots or crashes."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate for Tampering",
+                    "details": [
+                        "If the service is stopped, investigate who or what stopped it. Correlate the time the agent went offline with system and security event logs.",
+                        "Look for commands like `sc stop <service>`, `net stop <service>`, or `taskkill /IM <agent_process.exe>`.",
+                        "Check for signs of tampering with the agent's drivers or files, which might be indicated by File Integrity Monitoring (FIM) alerts if available."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Analyze Activity Before the Outage",
+                    "details": [
+                        "In your SIEM/EDR, review all activity on the host in the minutes leading up to the agent going offline.",
+                        "Look for suspicious logins, PowerShell execution, or downloads that could be the precursor to an attack.",
+                        "If you find suspicious activity, assume the host is compromised and the agent was deliberately disabled."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Response and Recovery",
+                    "details": [
+                        "If tampering is confirmed, isolate the host and initiate a full incident response.",
+                        "If it appears to be an operational issue (e.g., a failed update, corrupted agent), work with the EDR vendor's support to troubleshoot and reinstall the agent.",
+                        "Document the outage and its cause. If it was a non-malicious failure, consider creating a health-check alert for the EDR agent service."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 5,
+            "title": "Ransomware note found on a user's desktop.",
+            "description": "A ransomware note is a definitive sign of a major compromise. The primary goals are to prevent further encryption and lateral spread. This is a critical incident requiring immediate escalation.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment & Preservation",
+                    "details": [
+                        "Isolate the host from the network immediately using EDR/NAC to prevent spread.",
+                        "Instruct the user NOT to touch or power off the machine.",
+                        "Do NOT delete the ransomware note; it contains crucial information (attacker contact, payment details, sometimes decryption IDs)."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Activate Enterprise Incident Response",
+                    "details": [
+                        "Escalate immediately to the full IR team, leadership, and legal/cyber-insurance contacts as per the IR plan.",
+                        "Begin hunting for the same indicators (ransom note name, encrypted file extensions) across the entire environment using SIEM and EDR.",
+                        "Identify the ransomware strain if possible from the note or file extensions to find known decryptors or tactics."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate and Scope",
+                    "details": [
+                        "Determine the root cause. How did the ransomware get in? (Phishing, vulnerability, compromised credentials).",
+                        "Scrutinize authentication logs (AD, VPN) for signs of lateral movement originating from the initial host or associated user account.",
+                        "Identify all affected systems. Check file servers and network shares for encrypted files."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Eradication and Recovery",
+                    "details": [
+                        "Once the scope is understood and the threat contained, begin recovery of affected systems from clean, offline backups.",
+                        "Re-image all compromised machines; do not simply try to 'clean' them.",
+                        "Reset credentials for all users and service accounts associated with the incident.",
+                        "Block all identified IOCs and patch the entry vector vulnerability."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 6,
+            "title": "AV alert for generic.malware.a is quarantined.",
+            "description": "A generic AV detection that was successfully quarantined is a low-to-medium priority event. It indicates that preventative controls worked, but an investigation is still needed to understand the entry vector and confirm no pre-quarantine activity occurred.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Verify and Validate",
+                    "details": [
+                        "Confirm in the AV console that the file was successfully quarantined or deleted and did not execute.",
+                        "Retrieve the file hash (SHA256) from the AV alert.",
+                        "Submit the hash to VirusTotal and other threat intelligence sources to try and identify the specific malware family, which can inform further investigation."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate Entry Vector",
+                    "details": [
+                        "Determine how the malicious file arrived on the endpoint.",
+                        "Check the file path. Was it in a browser download folder, a temp directory from an email client, or a USB drive?",
+                        "Correlate the file creation timestamp with user activity logs (email, web proxy, etc.) to pinpoint the source."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Hunt for Pre-Quarantine Activity",
+                    "details": [
+                        "Even if quarantined, check EDR logs for any process activity associated with the file in the moments before it was caught.",
+                        "Look for suspicious network connections, registry changes, or child processes that might have occurred in a race condition before the AV engine acted.",
+                        "If any such activity is found, escalate the incident priority."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation and Closure",
+                    "details": [
+                        "If the investigation confirms no execution, document the finding and the entry vector.",
+                        "If the entry vector was a phishing email, remove it from other inboxes.",
+                        "Use the event as an opportunity for user education.",
+                        "Ensure the file hash is globally blocked as a precaution."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 7,
+            "title": "User reports their computer is \"acting slow\" after clicking a link.",
+            "description": "User-reported issues are a valuable source of threat detection. While often benign, a report of slowness after a specific action (like clicking a link) must be treated as a potential compromise until proven otherwise. It could indicate cryptomining, a backdoor, or other resource-intensive malware.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Engage the User and Gather IOCs",
+                    "details": [
+                        "Thank the user for reporting the issue.",
+                        "Ask for specifics: What was the link? Who was the email from? When exactly did this happen?",
+                        "Instruct the user to disconnect from the network if they are comfortable doing so, or prepare to isolate the host remotely."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Live Triage on the Host",
+                    "details": [
+                        "Using EDR, examine the host's real-time process list. Sort by CPU and memory usage to identify any resource hogs.",
+                        "Analyze running processes. Are there any with unusual names, no digital signature, or running from strange locations (%TEMP%, %APPDATA%)?",
+                        "Check network connections. Are there any active connections to unusual IPs or domains?"
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Correlate with Reported Action",
+                    "details": [
+                        "Filter EDR process events to the time the user reported clicking the link.",
+                        "Look for processes spawned by the browser or email client around that time.",
+                        "Trace the process chain. Did `chrome.exe` spawn `powershell.exe` which then downloaded and ran a suspicious file?"
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Containment and Remediation",
+                    "details": [
+                        "If a malicious process is identified, isolate the host immediately.",
+                        "Terminate the malicious process tree.",
+                        "Retrieve any dropped files for analysis.",
+                        "Based on the severity of the malware's actions, decide whether to re-image the machine (recommended) or attempt to clean it.",
+                        "Block IOCs (hashes, domains, IPs) and address the root cause (e.g., phishing email)."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 8,
+            "title": "WMI process (WmiPrvSE.exe) shows suspicious child processes or network connections.",
+            "description": "Windows Management Instrumentation (WMI) is a powerful administrative tool. Attackers abuse it for stealthy execution, persistence, and lateral movement. A WMI provider host process (WmiPrvSE.exe) spawning unusual children (like powershell.exe) or making external network connections is a strong indicator of malicious activity.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Analyze the Process Tree",
+                    "details": [
+                        "Confirm the suspicious activity is coming from `WmiPrvSE.exe`.",
+                        "Identify the child process. Is it `cmd.exe`, `powershell.exe`, or an unknown binary?",
+                        "Examine the command-line arguments of the child process. This will often contain the malicious script or command."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate WMI Events",
+                    "details": [
+                        "On the host, investigate the WMI-Activity Operational event log (Event ID 5861) for permanent WMI event consumer registrations.",
+                        "These logs will show the query and consumer that triggered the malicious action, effectively revealing the attacker's persistence mechanism.",
+                        "Look for suspicious consumers, such as `CommandLineEventConsumer` or `ActiveScriptEventConsumer`."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Identify the Source of Lateral Movement",
+                    "details": [
+                        "Malicious WMI commands are often executed remotely. Check for authentication events (Event ID 4624, Logon Type 3) on the host just before the WMI activity.",
+                        "The source IP of the login is the machine the attacker used to move laterally. This machine should now also be considered compromised and investigated."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Containment and Eradication",
+                    "details": [
+                        "Isolate all identified compromised hosts.",
+                        "Remove the malicious WMI persistence mechanism using PowerShell or `wbemtest`.",
+                        "Re-image the compromised machines.",
+                        "Reset credentials for any accounts used in the attack."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 9,
+            "title": "A file with a double extension (e.g., invoice.pdf.exe) is executed.",
+            "description": "This is a classic social engineering trick to deceive users into running an executable file by disguising it as a benign document. By default, Windows hides known file extensions, so 'invoice.pdf.exe' appears as 'invoice.pdf'. Execution of such a file indicates a successful phish and a likely compromise.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Isolate the host from the network to prevent any malware from communicating with its C2 server or moving laterally."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Analyze Post-Execution Activity",
+                    "details": [
+                        "Using EDR, examine all activity originating from the executed file.",
+                        "What child processes did it spawn? (e.g., `powershell.exe`, `cmd.exe`)",
+                        "Did it make any network connections? If so, to what IP/domain?",
+                        "Did it create or modify any files on disk?",
+                        "Did it create any persistence mechanisms (e.g., new services, scheduled tasks, registry run keys)?"
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate Entry Vector and Scope",
+                    "details": [
+                        "Determine how the file was delivered. Search the user's email for the filename to find the phishing message.",
+                        "Once the email is found, use its IOCs (sender, subject, attachment hash) to search for other recipients in the organization.",
+                        "Use the IOCs from the malware's execution (IPs, domains, hashes of dropped files) to hunt for other compromised systems."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation and User Education",
+                    "details": [
+                        "Re-image the compromised machine.",
+                        "Reset the user's password.",
+                        "Remove the malicious email from all user inboxes.",
+                        "Contact the user, explain what happened, and provide targeted security awareness training on file extensions and phishing.",
+                        "Block all identified IOCs."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 10,
+            "title": "Suspicious service created using sc.exe.",
+            "description": "Attackers often create new services as a powerful persistence mechanism. A malicious service will run with system-level privileges and start automatically on boot. An alert on a new service creation, especially one pointing to a binary in a temporary or user-writable directory, is a high-priority indicator of compromise.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Analyze the Service",
+                    "details": [
+                        "Examine the details of the newly created service. Look at the service name, display name, and especially the 'Binary Path'.",
+                        "A legitimate service binary is usually located in `C:\\Windows\\System32`. A path pointing to `C:\\Users\\...`, `C:\\TEMP\\`, or `C:\\ProgramData\\` is highly suspicious.",
+                        "Check the command-line arguments used with `sc.exe` or the new service. It might include malicious commands or scripts."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Service Binary",
+                    "details": [
+                        "Retrieve the executable file that the service is configured to run.",
+                        "Get its hash and analyze it using threat intelligence and sandboxing tools to understand its purpose (e.g., backdoor, C2 agent).",
+                        "Isolate the host to prevent the service from running or communicating."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Trace the Creation Event",
+                    "details": [
+                        "Identify the user and parent process that executed the `sc.exe create` command.",
+                        "This will help determine how the attacker gained initial access or elevated privileges on the host.",
+                        "Look for preceding suspicious activity like a phishing attachment being opened, PowerShell execution, or a remote login."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Eradication and Remediation",
+                    "details": [
+                        "Delete the malicious service (`sc.exe delete <service_name>`).",
+                        "Re-image the compromised host, as other backdoors may exist.",
+                        "Reset credentials for the user account involved.",
+                        "Hunt for the service name or binary hash on other systems to identify further compromise.",
+                        "Block all IOCs found."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 11,
+            "title": "IDS alert for \"ETPRO TROJAN Cobalt Strike Beacon\".",
+            "description": "This is a critical, high-fidelity alert. Cobalt Strike is a commercial adversary simulation tool widely used by threat actors for command and control (C2). An IDS signature match for its beaconing traffic means there is an actively compromised host on your network. Immediate action is required.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Identify the source IP address of the beaconing traffic from the IDS alert.",
+                        "Isolate the corresponding host from the network immediately. This is the highest priority to sever the attacker's connection."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Identify C2 Infrastructure",
+                    "details": [
+                        "Identify the destination IP address and domain from the IDS alert. This is the attacker's C2 server.",
+                        "Immediately block this IP/domain at the network perimeter (firewall, proxy) to prevent other potential beacons from checking in.",
+                        "Check the C2 IP/domain in threat intelligence tools (VirusTotal, etc.) to gather more context."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Hunt for Widespread Compromise",
+                    "details": [
+                        "Pivot on the C2 IP/domain. Search all network logs (DNS, proxy, NetFlow) across the entire environment for any other hosts that have communicated with it.",
+                        "Any host that has contacted the C2 must also be considered compromised and isolated.",
+                        "On the initial host, identify the process responsible for the beaconing to get a file hash, which can also be used for hunting."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation and Recovery",
+                    "details": [
+                        "All confirmed compromised hosts must be reimaged from a known-good source.",
+                        "Assume credential compromise. Reset passwords for all accounts that were used on the compromised hosts.",
+                        "Perform a root cause analysis to determine the initial entry vector that led to the beacon being installed."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 12,
+            "title": "Multiple failed SSH/RDP login attempts from a single external IP to a public-facing server.",
+            "description": "This activity indicates a brute-force or password-spraying attack against an exposed service. The goal is to guess a valid username/password combination. While the attempts are failing, a persistent attacker may eventually succeed if weak credentials exist.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Contain the Attack",
+                    "details": [
+                        "Identify the attacking source IP address from the logs.",
+                        "Check the reputation of the IP using threat intelligence (e.g., AbuseIPDB, VirusTotal). It is likely a known scanner or part of a botnet.",
+                        "Create a temporary rule at the network firewall to block all traffic from the source IP."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Verify No Successful Access",
+                    "details": [
+                        "Filter the authentication logs for the targeted server and search for any successful logins (Event ID 4624 for RDP) from the attacking IP address.",
+                        "Also search for successful logins from ANY IP for the usernames that were being targeted in the attack. The attacker may have switched IPs after a successful guess.",
+                        "If a successful login is found, escalate to a full incident response as the server is compromised."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Review Security Posture",
+                    "details": [
+                        "Confirm that all accounts with RDP/SSH access have strong, unique passwords.",
+                        "Ensure that Multi-Factor Authentication (MFA) is enabled for all remote access. This is the single most effective control against brute-force attacks.",
+                        "Review the business need for exposing RDP/SSH directly to the internet. If possible, place it behind a VPN or a secure gateway."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Long-Term Mitigation",
+                    "details": [
+                        "Implement an automated response to block IPs after a certain threshold of failed logins (e.g., using Fail2Ban or a similar tool).",
+                        "Make the temporary IP block permanent or maintain it for an extended period.",
+                        "Ensure logs from perimeter devices and servers are being actively monitored for this type of activity."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 13,
+            "title": "A corporate laptop starts communicating with a known Tor exit node.",
+            "description": "The Tor network is designed for anonymity and is often abused by malware for command and control (C2) to hide the location of the attacker's server. It is also a policy violation in most corporate environments. This traffic is highly suspicious and requires investigation.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Identify and Isolate",
+                    "details": [
+                        "Identify the source host on your network that is making the connection to the Tor exit node.",
+                        "Isolate the host from the network to stop the communication and prevent any potential data exfiltration or C2 activity."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Source Process",
+                    "details": [
+                        "Using EDR, identify the specific process on the isolated host that initiated the connection to the Tor IP.",
+                        "Is it an unauthorized Tor Browser installed by the user, or is it a different process (like `powershell.exe` or an unknown binary) using Tor for malicious purposes?",
+                        "Retrieve the process executable, get its hash, and analyze it."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Analyze Surrounding Activity",
+                    "details": [
+                        "Look at the activity on the host right before the Tor connection began.",
+                        "Was a file downloaded? Was an email attachment opened? Was a script executed?",
+                        "This context will help determine if this is a case of user policy violation or a malware infection."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "If it's malware, re-image the machine and reset the user's credentials.",
+                        "If it's a user policy violation, contact the user and their manager, instruct them to remove the software, and provide a policy reminder.",
+                        "Implement a network-level block for all known Tor entry and exit nodes. Many threat intelligence feeds provide these lists.",
+                        "Consider creating an application control policy to block the Tor Browser executable."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 14,
+            "title": "DNS logs show a host repeatedly querying a dynamic DNS (DDNS) domain.",
+            "description": "Dynamic DNS (DDNS) services (like no-ip.com, duckdns.org) are legitimate but are also frequently abused by attackers for C2 infrastructure because they are free and easy to set up. A corporate host with no business reason to contact a DDNS domain, especially with a high frequency of requests, is a potential sign of a malware beacon.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Identify and Investigate the Host",
+                    "details": [
+                        "Identify the internal host making the DNS queries.",
+                        "Check the host's profile. Is it a server or a user workstation? Is there any legitimate software on it that might use DDNS?",
+                        "Analyze the query pattern. Is it periodic (e.g., every 5 minutes)? This is a classic beaconing pattern."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Analyze the Domain and Process",
+                    "details": [
+                        "Investigate the specific DDNS domain being queried. Check its reputation on VirusTotal, urlscan.io, and other threat intelligence platforms.",
+                        "On the host, use EDR or forensic tools to identify the process that is making these DNS queries. This is the key to identifying the malware.",
+                        "If the process is identified, get its hash and analyze its behavior."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Containment",
+                    "details": [
+                        "Isolate the host from the network.",
+                        "Add the malicious DDNS domain to your DNS sinkhole or firewall blocklist. This will prevent it and any other compromised hosts from resolving the C2 address."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Scope and Remediate",
+                    "details": [
+                        "Search your DNS logs for any other hosts in your environment that have queried the same malicious domain. Isolate them as well.",
+                        "Re-image the confirmed compromised machines and reset user credentials.",
+                        "Consider creating a broader alert for any hosts contacting DDNS provider domains that are not explicitly whitelisted."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 15,
+            "title": "Outbound traffic on a non-standard port to an unknown IP.",
+            "description": "Most legitimate corporate traffic flows over well-known ports (80/TCP, 443/TCP, 53/UDP). When a host initiates an outbound connection on a high-numbered or unusual port (e.g., 6667/TCP, 8888/TCP) to an external IP, it is often an indicator of a C2 channel or data exfiltration. Egress filtering should block this, but if seen, it needs investigation.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Gather Connection Details",
+                    "details": [
+                        "From the firewall or NetFlow log, identify the key details: source internal IP, destination external IP, destination port, and protocol.",
+                        "Check the reputation of the destination IP address using threat intelligence feeds.",
+                        "If the firewall is not already blocking this traffic, create a rule to block the connection immediately."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Source Host",
+                    "details": [
+                        "Access the source host and identify the process that initiated the outbound connection.",
+                        "Correlate the timestamp, destination IP, and port from the network log with the output of tools like `netstat` or the process list in your EDR.",
+                        "Once the process is identified, determine if it is legitimate or malicious."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Analyze the Process",
+                    "details": [
+                        "If the process is unknown or suspicious, retrieve it for analysis.",
+                        "Get its hash, check threat intelligence, and submit it to a sandbox.",
+                        "Examine its properties: Is it signed? Where is it located on disk? What is its parent process?"
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Contain and Remediate",
+                    "details": [
+                        "If the process is confirmed malicious, isolate the host and proceed with a full incident response (re-image, reset credentials).",
+                        "Use the IOCs (destination IP, file hash) to hunt for other instances of this activity across the network.",
+                        "Review and tighten egress firewall rules to deny outbound traffic on all ports by default, only allowing what is explicitly required."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 16,
+            "title": "A user is bypassing the corporate proxy.",
+            "description": "A corporate web proxy is a critical security control for filtering malicious sites, logging traffic, and enforcing policy. A user bypassing it, whether intentionally or not, creates a significant blind spot. This could be a user trying to access blocked content or malware attempting to hide its C2 traffic.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Identify 'How'",
+                    "details": [
+                        "Determine the mechanism of proxy bypass. Are there direct connections to external IPs on port 80/443 from the user's machine? This indicates the proxy settings were changed or are not being enforced.",
+                        "Is the user using a commercial VPN or anonymizer tool (e.g., Psiphon, Ultrasurf)? Look for traffic to the known IPs/ports of these services.",
+                        "Is it a malicious browser extension? Check the user's browser configuration."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Destination",
+                    "details": [
+                        "Analyze the traffic that is bypassing the proxy. Where is it going?",
+                        "Are the destinations legitimate but against policy (e.g., social media, streaming sites), or are they suspicious/malicious domains?",
+                        "If destinations are suspicious, this escalates from a policy violation to a potential security incident."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Engage the User",
+                    "details": [
+                        "Contact the user and their manager to discuss the activity.",
+                        "If the cause is a non-malicious policy violation, explain the security risks and direct them to follow company policy.",
+                        "If the user is unaware of the activity, it strongly suggests a malware infection is responsible. Isolate the host immediately."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Technical Remediation",
+                    "details": [
+                        "If malware is suspected, re-image the machine.",
+                        "Strengthen technical controls to prevent bypass. Ensure GPOs enforcing proxy settings are correctly applied and cannot be changed by the user.",
+                        "Implement firewall rules to deny direct outbound HTTP/HTTPS access from workstations, forcing all web traffic through the proxy.",
+                        "Use application control to block known anonymizer and VPN tools."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 17,
+            "title": "Large, unexpected data transfer from an internal database server to another internal host.",
+            "description": "This is a potential indicator of data staging. Attackers who have compromised a database server will often copy large amounts of data to another, less-monitored host within the network (like a workstation) before attempting to exfiltrate it. This internal transfer is a critical and often detectable step in the attack chain.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Validate the Transfer",
+                    "details": [
+                        "Identify the source (database server) and destination (internal host) IPs, the protocol used (e.g., SMB, FTP, RDP), and the volume of data transferred.",
+                        "Immediately check with the database and system administrators. Is this part of a scheduled backup, a legitimate data pull for analytics, or a deployment? Check change management tickets.",
+                        "If no one can vouch for the activity, treat it as hostile."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate Both Endpoints",
+                    "details": [
+                        "**On the database server:** Investigate the process and user account that initiated the transfer. A legitimate process might be `sqlserver.exe`, but a suspicious one could be `powershell.exe` or an unknown binary.",
+                        "**On the destination host:** Look for where the data was stored. Check for large, newly created files (e.g., .zip, .bak, .rar). Identify the process that received the data.",
+                        "Isolate the destination host to prevent the exfiltration step."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Assume Compromise and Hunt",
+                    "details": [
+                        "Both the database server and the staging host should be considered compromised.",
+                        "Investigate how the database server was initially accessed. Look for signs of SQL injection, compromised credentials, or exploitation of a vulnerability.",
+                        "Reset credentials for the user/service accounts involved in the transfer."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Containment and Recovery",
+                    "details": [
+                        "Isolate both hosts.",
+                        "Securely delete the staged data from the destination host.",
+                        "Proceed with a full IR plan for the database server, which may involve restoration from backups after the vulnerability has been patched.",
+                        "Review network segmentation. Should a database server be able to push large amounts of data to a standard user workstation?"
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 18,
+            "title": "Port scan detected from an internal host against another segment of the network.",
+            "description": "This is a clear sign of internal reconnaissance. After an attacker compromises one host, they will scan the network to discover other live hosts and open ports, looking for opportunities for lateral movement. This activity is never legitimate for a standard user workstation.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Identify the source host that is performing the scan.",
+                        "Isolate this host from the network immediately to stop the reconnaissance and prevent any subsequent lateral movement attempt."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Source of the Scan",
+                    "details": [
+                        "On the isolated host, identify the process responsible for the scanning activity.",
+                        "Was it a known scanning tool (e.g., `nmap.exe`) dropped by the attacker? Or was it a script running via `powershell.exe` or `python.exe`?",
+                        "Retrieve any malicious tools or scripts for analysis."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Determine Initial Compromise",
+                    "details": [
+                        "Investigate how the scanning host was initially compromised. Work backwards from the time of the scan.",
+                        "Look for suspicious logins, email attachment execution, or browser downloads that preceded the scanning activity.",
+                        "Understanding the entry point is crucial for full remediation."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "Re-image the compromised host.",
+                        "Reset the credentials of any user who was logged into the host.",
+                        "Review the scan results if possible. Did the attacker identify any high-value targets? Increase monitoring on those systems.",
+                        "Ensure internal network segmentation and firewalling are in place to limit the impact of such an event in the future."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 19,
+            "title": "Firewall rule change request to allow Any/Any traffic.",
+            "description": "This is a procedural scenario that tests security policy. A request to allow 'any' source to 'any' destination on 'any' port is a massive security risk and a violation of the principle of least privilege. The correct response is to deny the request and educate the requestor.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Initial Response: Deny and Inquire",
+                    "details": [
+                        "Deny the change request immediately. Do not implement the rule, even temporarily.",
+                        "Contact the person or team who submitted the request."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Understand the Business Need",
+                    "details": [
+                        "Work with the requestor to understand what they are trying to accomplish. Often, such requests are made out of convenience or a lack of understanding.",
+                        "Ask for the specific source IP(s), destination IP(s), and the exact port(s)/protocol(s) required for their application to function.",
+                        "Why do they need this connection? What application depends on it?"
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Architect a Secure Solution",
+                    "details": [
+                        "Based on the gathered requirements, propose a new, specific, least-privilege firewall rule.",
+                        "Example: 'Allow Source `10.1.1.5` to Destination `10.2.2.10` on Port `TCP/1433`.'",
+                        "Document the business justification, the requestor, and the approved, specific rule in the change management ticket."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Implement and Verify",
+                    "details": [
+                        "Implement the new, secure rule.",
+                        "Work with the requestor to test their application and confirm that the specific rule is sufficient for it to function correctly.",
+                        "Close the ticket once functionality is verified."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 20,
+            "title": "A server in the DMZ initiates a connection to a host on the internal corporate network.",
+            "description": "This is a critical security violation and a strong indicator of a compromised DMZ host. The purpose of a Demilitarized Zone (DMZ) is to be a buffer. Traffic should flow from the internet to the DMZ, and from the internal network to the DMZ, but never be initiated from the DMZ to the internal network. This indicates an attacker is using the DMZ server as a pivot point.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Verify and Block",
+                    "details": [
+                        "Confirm the connection details from firewall logs: DMZ source IP, internal destination IP, and destination port.",
+                        "The firewall should have blocked this connection by default. If it was allowed, it represents a critical misconfiguration that must be fixed immediately. Block this traffic now.",
+                        "If it was blocked, the alert is still valid as an attack attempt."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Isolate the DMZ Server",
+                    "details": [
+                        "Assume the DMZ server is fully compromised.",
+                        "Isolate the server from the network to prevent any further pivot attempts or C2 communication."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the DMZ Server for Initial Compromise",
+                    "details": [
+                        "Begin a forensic investigation on the DMZ server.",
+                        "Since it's likely a web server, look for signs of web shell uploads, log files indicating vulnerability exploitation (e.g., Log4Shell, ProxyLogon), and unauthorized processes.",
+                        "Identify how the attacker gained access."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Investigate the Internal Target",
+                    "details": [
+                        "Even if the connection was blocked, investigate the internal host that was targeted.",
+                        "Was it targeted because of a specific role (e.g., Domain Controller, file server)?",
+                        "Scrutinize the internal host for any other signs of compromise, in case the attacker had another way in.",
+                        "Remediate the DMZ server (re-image and patch) and harden firewall rules."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 21,
+            "title": "User reports a phishing email with a link to a fake Office 365 login page.",
+            "description": "This is a very common credential harvesting attack. The user's report is a critical first line of defense. The goals are to prevent other users from falling for the phish and to identify and help anyone who may have already submitted their credentials.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Acknowledge and Instruct",
+                    "details": [
+                        "Thank the user for reporting the email. Positive reinforcement encourages future reporting.",
+                        "Ask the critical question: \"Did you click the link and enter your username or password?\"",
+                        "If the user says yes, immediately initiate a password reset for their account and proceed with compromise response steps."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Contain the Threat",
+                    "details": [
+                        "Use the email security gateway or phishing response tool to search for and delete the malicious email from all other user inboxes (a.k.a. 'search and purge').",
+                        "Extract the phishing URL from the email.",
+                        "Block the URL and the top-level domain at the web proxy and firewall."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Hunt for Potential Victims",
+                    "details": [
+                        "Search web proxy logs to see if any other users clicked the link before it was blocked.",
+                        "Search authentication logs (Azure AD, ADFS) for any suspicious login patterns (e.g., logins from unusual locations, impossible travel alerts) around the time the email was sent.",
+                        "Proactively contact any user who clicked the link and force a password reset."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Analyze and Document",
+                    "details": [
+                        "Submit the URL to a tool like urlscan.io to analyze the phishing kit.",
+                        "Document the IOCs (sender IP, sender address, subject line, URL) in an incident ticket.",
+                        "Consider sending a security advisory to the company about the active campaign."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 22,
+            "title": "CEO emails the CFO asking for an urgent wire transfer (Business Email Compromise - BEC).",
+            "description": "This is a classic Business Email Compromise (BEC) or CEO fraud scenario. It relies on social engineering (urgency, authority) rather than malware. The financial risk is extremely high and direct. The response must be fast and involve out-of-band communication.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Communication - DO NOT USE EMAIL",
+                    "details": [
+                        "Immediately call the CFO or the finance department personnel who received the email. Instruct them to HALT any in-progress transfer related to this request.",
+                        "Instruct them not to reply to the email, as this just confirms to the attacker that the line of communication is active."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Verify the Request Out-of-Band",
+                    "details": [
+                        "Contact the CEO (or their verified executive assistant) using a known-good phone number or in-person.",
+                        "Ask them to verify if they made the transfer request. They will almost certainly say no."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Analyze the Email for IOCs",
+                    "details": [
+                        "Obtain the original email with full headers.",
+                        "Analyze the headers. Is it a spoofed sender address? Look at the `Return-Path` and `Received-SPF` headers. Or is it from a look-alike domain (e.g., `ceo@compány.com` vs `ceo@company.com`)?",
+                        "If the email came from the CEO's actual, compromised account, this becomes a much larger incident requiring a full account compromise response (password reset, session termination, etc.)."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Containment and Education",
+                    "details": [
+                        "Block the sender's domain or IP address.",
+                        "Delete the email from the recipient's inbox.",
+                        "Send a targeted communication to the finance department and all executives, reminding them of the procedure for verifying financial transfers and warning them about this active BEC campaign."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 23,
+            "title": "An email arrives with an HTML attachment that says \"View Secure Document.\"",
+            "description": "This is a phishing technique that bypasses some URL scanners because the malicious content is contained within the HTML file itself, not a remote link. The attached HTML file, when opened, renders a fake login form locally in the browser, designed to steal credentials.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Contain the Email",
+                    "details": [
+                        "Obtain the email and attachment from the user who reported it.",
+                        "Use email security tools to search for and purge the same email from all other mailboxes in the organization."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Analyze the HTML Attachment",
+                    "details": [
+                        "Analyze the HTML file in a safe environment (sandbox or text editor).",
+                        "Examine the form's `action` attribute. This will reveal the URL where the stolen credentials are being sent (`POST`ed).",
+                        "Look for obfuscated JavaScript which may be used to construct the form or exfiltrate the data."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Block and Hunt",
+                    "details": [
+                        "Block the credential exfiltration URL (from the form action) at the web proxy/firewall.",
+                        "Get the SHA256 hash of the HTML attachment and block it in the email gateway.",
+                        "Hunt through proxy logs for any traffic to the exfiltration URL. Any user who visited it should be considered compromised."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediate and Educate",
+                    "details": [
+                        "Force a password reset for any user confirmed or suspected to have submitted their credentials.",
+                        "Document all IOCs (sender, subject, attachment hash, exfil URL).",
+                        "Educate users about the danger of unexpected attachments, including HTML files."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 24,
+            "title": "A user's account is sending out spam/phishing emails to internal and external contacts.",
+            "description": "This is a clear indicator of an account compromise. An attacker has obtained the user's credentials and is using their mailbox to lend legitimacy to their phishing campaigns, targeting the user's trusted contacts. This requires immediate action to lock down the account and investigate the user's devices.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Account Lockdown",
+                    "details": [
+                        "Disable the user's account in Active Directory / Azure AD immediately to stop the flow of malicious emails.",
+                        "Force a password reset for the account.",
+                        "Terminate all active sessions for the user (e.g., in Office 365, Okta). This will log the attacker out of any active webmail or application sessions."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Contain the Phishing Campaign",
+                    "details": [
+                        "Analyze the emails being sent from the account to identify the IOCs (malicious links, attachments).",
+                        "Use email security tools to purge the internal emails.",
+                        "Block the identified URLs/hashes at the perimeter."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the Root Cause",
+                    "details": [
+                        "Interview the user. Did they recently respond to a phishing email or use their corporate credentials on an untrusted site?",
+                        "Review authentication logs for their account. Look for the first successful login from an unusual IP address, location, or user-agent. This is likely the point of compromise.",
+                        "Check for any new inbox rules created by the attacker (e.g., to hide replies or auto-delete messages)."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Investigate the User's Devices",
+                    "details": [
+                        "The account compromise could be due to malware on the user's workstation.",
+                        "Isolate the user's primary devices and perform a security scan.",
+                        "Look for keyloggers, info-stealers, or other malware that could have harvested their credentials.",
+                        "If malware is found, the device must be reimaged."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 25,
+            "title": "HR receives an email from an \"employee\" asking to change their direct deposit information.",
+            "description": "This is a form of Business Email Compromise (BEC) targeting the HR department to divert an employee's salary to an attacker-controlled bank account. Like CEO fraud, it relies on impersonation and social engineering.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Instruct HR: Do Not Act",
+                    "details": [
+                        "Immediately instruct the HR department not to make any changes to the payroll information based on the email request.",
+                        "If a change was already made, initiate the process to reverse it immediately with the bank."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Out-of-Band Verification",
+                    "details": [
+                        "Instruct HR to contact the legitimate employee whose details are being changed. This contact must be made via a trusted, out-of-band method like a phone call to a known number or an instant message.",
+                        "The employee will confirm they did not make the request."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Analyze the Email",
+                    "details": [
+                        "Analyze the email headers. Is it from the employee's real, compromised account, or is it a spoofed/look-alike domain?",
+                        "If the account is compromised, it requires a full account takeover response (disable, reset password, kill sessions).",
+                        "If it is a spoof, the immediate threat is lower, but the IOCs are still valuable."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Harden the Process",
+                    "details": [
+                        "Block the sender's IP/domain if it's external.",
+                        "Work with HR to implement or reinforce a formal policy for changing direct deposit information. This policy MUST require out-of-band verification (e.g., a verbal confirmation or an in-person request) for all such changes."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 26,
+            "title": "You receive a threat intelligence report about a new phishing campaign.",
+            "description": "This is a proactive scenario. Instead of reacting to an alert, you are using external intelligence to hunt for a threat before it causes damage. The goal is to see if your organization is being targeted by or is vulnerable to a known campaign.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Parse the Threat Intelligence",
+                    "details": [
+                        "Read the report and extract all usable Indicators of Compromise (IOCs).",
+                        "These can include: Sender domains/IPs, Email subject lines (including variations), Attachment file names/hashes (MD5, SHA256), Malicious URLs or domains within the email body."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Proactive Hunting in Email Logs",
+                    "details": [
+                        "Use the IOCs to query your email gateway logs and SIEM.",
+                        "Search for any inbound emails matching the sender, subject, or attachment hash.",
+                        "If any are found, determine their delivery status. Were they blocked, or were they delivered to user inboxes?"
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Proactive Hunting in Network Logs",
+                    "details": [
+                        "Use the URL/domain IOCs to query your web proxy and DNS logs.",
+                        "Search for any internal hosts that may have visited the malicious links or resolved the domains.",
+                        "A match in these logs indicates a user clicked a link and requires immediate follow-up."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Containment and Mitigation",
+                    "details": [
+                        "If any delivered malicious emails are found, perform a 'search and purge' to remove them.",
+                        "If any hosts visited the malicious sites, isolate them and begin an investigation for compromise.",
+                        "Add all IOCs from the report to your blocklists (email gateway, proxy, firewall, EDR) to proactively defend against the campaign.",
+                        "Document the hunt and its findings in a ticket."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 27,
+            "title": "A user calls the helpdesk in a panic, saying they were locked out of their account after a call from \"Microsoft.\"",
+            "description": "This is a classic tech support scam. The attacker calls the user, creates a sense of panic, tricks them into revealing their password or granting remote access, and then immediately uses that access to lock the user out. This must be treated as a full account and host compromise.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Account Containment",
+                    "details": [
+                        "While on the phone with the user, immediately disable their corporate account to prevent further malicious activity.",
+                        "Force a password reset.",
+                        "Terminate all active sessions to log the attacker out."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Host Containment",
+                    "details": [
+                        "Instruct the user to physically disconnect their computer from the network (unplug the Ethernet cable or turn off Wi-Fi).",
+                        "This severs the attacker's remote access session if they installed a tool like TeamViewer, AnyDesk, or a RAT."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the Compromise",
+                    "details": [
+                        "Once contained, review the user's account logs. Look for recent successful logins from unusual locations, MFA changes, or suspicious application consent grants.",
+                        "Interview the user to understand exactly what the 'Microsoft' caller had them do. Did they install software? Did they go to a specific website? This provides IOCs."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "The user's machine cannot be trusted and must be reimaged.",
+                        "After the machine is clean and the password has been reset, re-enable the user's account.",
+                        "Document the incident and use it as a concrete example in a company-wide security advisory about tech support scams."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 28,
+            "title": "An email has a QR code leading to a malicious site.",
+            "description": "This technique, sometimes called 'quishing,' is designed to bypass email security controls that scan for malicious URLs in text. The URL is embedded within an image (the QR code), which many scanners do not process. An unsuspecting user scans the code with their mobile phone, which is often less protected, and is taken to a phishing site.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Contain and Analyze",
+                    "details": [
+                        "Obtain the email from the user.",
+                        "Use a secure, isolated device or an online tool to scan the QR code and extract the malicious URL. Do NOT scan it with your corporate or personal phone.",
+                        "Once the URL is extracted, block it at the network perimeter (proxy/firewall)."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Search and Destroy",
+                    "details": [
+                        "Use email security tools to find and delete all instances of this email from user inboxes.",
+                        "The email may not have other text-based IOCs, so you may need to search by sender, subject, or even image characteristics if your tool supports it."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Hunt for Clicks",
+                    "details": [
+                        "Since the user would likely open the link on their mobile device, hunting in corporate proxy logs may not be sufficient.",
+                        "Check your Mobile Device Management (MDM) solution's logs, if available, for traffic to the malicious domain.",
+                        "Review authentication logs for the user who reported the email, looking for suspicious logins from their mobile device around the time of the report."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Educate",
+                    "details": [
+                        "This is a relatively novel attack vector for many users.",
+                        "Send out a security advisory warning users about the dangers of QR codes in unsolicited emails.",
+                        "Advise them to treat QR codes with the same suspicion as they would any other link."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 29,
+            "title": "An email passes SPF/DKIM/DMARC checks but is still clearly malicious.",
+            "description": "This indicates that the email originated from a legitimate, trusted source that has been compromised. The attacker is leveraging the good reputation of the sender's domain to bypass standard email authentication checks. This makes the email's content and context the primary indicators of malice.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Trust the Content, Not the Headers",
+                    "details": [
+                        "Recognize that passing authentication checks doesn't mean an email is safe.",
+                        "Analyze the content: Does it have a sense of urgency? Does it ask for credentials or money? Does it contain a suspicious link or attachment?",
+                        "Confirm that the content is malicious."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Contain and Block",
+                    "details": [
+                        "Even though the sender is 'legitimate,' you must treat the specific IOCs as malicious.",
+                        "Block the malicious URL or attachment hash found within the email.",
+                        "Purge the specific email from all user inboxes based on its message ID or subject line."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Notify the Compromised Sender",
+                    "details": [
+                        "This is a crucial step. Contact the security team or an administrative contact at the compromised sending organization.",
+                        "Use a method other than email (e.g., a phone call) to inform them that their email account or server is compromised and is being used to send malicious emails.",
+                        "Provide them with the IOCs so they can begin their own incident response."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Document and Monitor",
+                    "details": [
+                        "Document the incident, noting that it was from a compromised trusted third party.",
+                        "Temporarily increase monitoring of all communications from the compromised partner until they confirm they have resolved their issue."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 30,
+            "title": "A calendar invite from an external party contains a malicious link.",
+            "description": "This is another vector that can bypass traditional email scanning. Malicious actors send calendar invites, which often get automatically added to a user's calendar. The body of the invite contains a phishing link, and the event notification itself can create a sense of legitimacy and urgency.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Analyze and Contain",
+                    "details": [
+                        "Instruct the user not to accept or decline the invite, but to delete it.",
+                        "Obtain the details of the invite. Extract the malicious URL from the event description or location field.",
+                        "Block the URL at the web proxy/firewall."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Hunt for Other Recipients",
+                    "details": [
+                        "This can be tricky to search for. Query your email/collaboration platform logs for events created by the external attacker's email address.",
+                        "Search web proxy logs for any other users who may have clicked the link."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Remediate Affected Users",
+                    "details": [
+                        "For any user who clicked the link, investigate for potential credential compromise and force a password reset.",
+                        "Instruct users on how to manually remove the malicious event from their calendars without sending a response to the attacker."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Review and Educate",
+                    "details": [
+                        "Consider adjusting email client settings to not automatically add calendar invites from unknown senders.",
+                        "Educate users to be suspicious of unexpected calendar invites and to inspect the links within them before clicking, just as they would with an email."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 31,
+            "title": "CloudTrail/Azure Activity Log shows an IAM user was created, given admin privileges, and then used to create access keys.",
+            "description": "This is a classic cloud account takeover pattern. An attacker gains initial access, creates their own user for persistence, escalates its privileges to administrator, and then generates API access keys for off-network, programmatic access. This is a critical cloud security incident.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Disable the newly created malicious IAM user immediately.",
+                        "Deactivate and delete the access keys generated by the malicious user.",
+                        "Revoke the administrative privileges that were granted."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Initial Access Vector",
+                    "details": [
+                        "Analyze the logs to see *who* or *what* created the malicious IAM user. Identify the source IP and the user/role that performed the `CreateUser` action.",
+                        "This initial user/role is compromised. It could be a developer's leaked access key or a vulnerable application with an overly permissive service role.",
+                        "Immediately rotate the credentials for the compromised initial account."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Scope the Breach",
+                    "details": [
+                        "Review ALL activity performed by the malicious IAM user and the initially compromised account.",
+                        "Did they access or exfiltrate data from S3 buckets or databases? Did they spin up EC2 instances for cryptojacking? Did they modify any other configurations?",
+                        "Use the source IP of the attacker as a pivot point to search for other actions in the logs."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation and Hardening",
+                    "details": [
+                        "Revert any malicious changes made by the attacker.",
+                        "Terminate any unauthorized resources they created.",
+                        "Implement stricter IAM policies. Enforce MFA for all users. Set up alerts for high-privilege actions like user creation and policy changes.",
+                        "Scan code repositories for any other hardcoded access keys."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 32,
+            "title": "A large number of EC2 instances are spun up in an unused region.",
+            "description": "This is a hallmark of a cryptojacking attack. Attackers who have stolen cloud credentials will programmatically create hundreds of powerful instances in regions that the organization doesn't actively monitor, using them to mine cryptocurrency and running up a massive bill. The goal is to stop the financial bleeding and find the source of the compromise.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Stop the Bleeding",
+                    "details": [
+                        "Navigate to the unused region in the cloud console where the instances are running.",
+                        "Select all unauthorized instances and terminate them immediately. Do NOT just stop them, as they can be restarted. Termination is key.",
+                        "Consider taking a snapshot of one instance before terminating for later forensic analysis."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Identify the Compromised Credential",
+                    "details": [
+                        "Analyze the CloudTrail/Activity logs for the `RunInstances` API calls that created the instances.",
+                        "The logs will show which IAM user or role's credentials were used to perform this action. This is the compromised identity.",
+                        "Immediately disable that user or rotate the credentials for that role."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the Initial Breach",
+                    "details": [
+                        "How was this credential stolen? Was it an access key hardcoded in a public GitHub repository? Was it stolen from a developer's machine via malware?",
+                        "Scan public code repositories and investigate the user's devices and recent activity to find the root cause."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Harden and Prevent",
+                    "details": [
+                        "Set up billing alerts to get notified of sudden cost spikes.",
+                        "Use Service Control Policies (SCPs) to disable unused regions entirely, preventing any resources from being created there.",
+                        "Enforce MFA and least-privilege IAM policies to limit the blast radius of a single credential compromise."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 33,
+            "title": "GuardDuty alert for \"Unauthorized Access: EC2/MaliciousIPCaller.Unusual\".",
+            "description": "AWS GuardDuty is an intelligent threat detection service. This specific alert is high-fidelity and indicates that an EC2 instance in your environment is being accessed (e.g., via SSH, RDP, or API calls) from an IP address that is on a known threat list (e.g., a botnet C2, a scanner). This suggests the instance may be compromised or is being actively targeted.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Analyze the GuardDuty Finding",
+                    "details": [
+                        "Review the full details of the finding. Identify the affected EC2 instance ID, the attacking IP address, and the port/protocol being used.",
+                        "Cross-reference the attacking IP with other threat intelligence sources to confirm its malicious nature."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Review Security Group Configuration",
+                    "details": [
+                        "Examine the Security Group attached to the EC2 instance.",
+                        "Is the port identified in the alert open to the internet (`0.0.0.0/0`)? This is a common misconfiguration.",
+                        "If the port is open, the immediate fix is to restrict the rule to only allow access from a known, trusted IP range (like a corporate VPN or a bastion host)."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the Instance for Compromise",
+                    "details": [
+                        "Even after fixing the security group, you must assume the instance was compromised before the fix.",
+                        "Isolate the instance by modifying the security group to deny all traffic except from your own analysis IP.",
+                        "Perform a forensic analysis. Check authentication logs for successful logins from the malicious IP. Look for suspicious processes, new files, or outbound C2 connections."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediation",
+                    "details": [
+                        "If any sign of compromise is found, the instance should be terminated and rebuilt from a golden AMI.",
+                        "If it was just a brute-force attempt against a closed port (which GuardDuty can still see), the risk is lower, but the finding validates the need for strict security group rules.",
+                        "Implement automated tools or scripts to regularly scan for overly permissive security group rules."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 34,
+            "title": "An S3 bucket with sensitive data is made public.",
+            "description": "This is a critical data exposure incident. Making an S3 bucket public means anyone on the internet can potentially list, read, and download its contents. If the bucket contains PII, financial data, or intellectual property, this can lead to a major data breach. The response must be immediate.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Immediate Containment",
+                    "details": [
+                        "Navigate to the S3 console and identify the public bucket.",
+                        "Immediately edit the bucket's permissions. Uncheck all public access options and save. Alternatively, apply a private bucket policy.",
+                        "Enable 'Block all public access' at the bucket level as a primary control."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Investigate the Cause",
+                    "details": [
+                        "Analyze CloudTrail logs for the `PutBucketAcl`, `PutBucketPolicy`, or other permission-changing API calls related to the affected bucket.",
+                        "The logs will show *who* made the change (which IAM user/role) and from what source IP address.",
+                        "Was this an accidental misconfiguration by a developer or a malicious act by an attacker?"
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Assess the Impact",
+                    "details": [
+                        "Determine what kind of data was in the bucket. Use tools like Amazon Macie to scan the contents for sensitive information.",
+                        "Enable S3 server access logging (if not already on) and analyze existing logs. Look for `GetObject` requests from unknown or suspicious IP addresses to determine if the data was actually accessed or downloaded by external parties.",
+                        "This information is critical for breach notification requirements."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Prevent Recurrence",
+                    "details": [
+                        "Enable 'Block all public access' at the AWS account level to provide a guardrail against this happening again.",
+                        "Implement IAM policies that explicitly deny users from making S3 buckets public.",
+                        "Use tools like AWS Config to continuously monitor for and automatically remediate public S3 buckets."
+                    ]
+                }
+            ]
+        },
+        {
+            "scenario_number": 35,
+            "title": "A cloud bill is unexpectedly high.",
+            "description": "A sudden, massive spike in a cloud bill is not just a financial problem; it is a strong security signal. The most common cause is a compromised credential being used for resource-intensive activities like cryptocurrency mining, which can cost thousands of dollars in a very short time.",
+            "steps": [
+                {
+                    "step_number": 1,
+                    "step_title": "Analyze the Bill",
+                    "details": [
+                        "Use the cloud provider's cost management dashboard (e.g., AWS Cost Explorer, Azure Cost Management) to pinpoint the source of the cost increase.",
+                        "Filter by service, region, and tags. The spike is often from `EC2` or `Compute Engine` in a region you don't normally use."
+                    ]
+                },
+                {
+                    "step_number": 2,
+                    "step_title": "Find and Terminate Unauthorized Resources",
+                    "details": [
+                        "Once you've identified the service and region (e.g., EC2 in ap-northeast-1), go to that service's console.",
+                        "Look for a large number of unauthorized resources (e.g., high-CPU virtual machines).",
+                        "Terminate these resources immediately to stop the costs from accumulating."
+                    ]
+                },
+                {
+                    "step_number": 3,
+                    "step_title": "Investigate the Root Cause",
+                    "details": [
+                        "Check the CloudTrail/Activity logs for the API calls that created these resources (e.g., `RunInstances`).",
+                        "The logs will reveal the compromised IAM user or role credential that was used.",
+                        "This is the same investigation path as the 'Cryptojacking' scenario. Find out how that credential was leaked (e.g., public GitHub repo)."
+                    ]
+                },
+                {
+                    "step_number": 4,
+                    "step_title": "Remediate and Harden",
+                    "details": [
+                        "Deactivate and rotate the compromised credential.",
+                        "Implement preventative controls: Set up billing alerts with a low threshold, disable unused regions using Service Control Policies (SCPs), and enforce least-privilege IAM policies.",
+                        "Contact your cloud provider's support. In some cases of fraudulent use, they may be willing to issue a credit for the charges."
+                    ]
+                }
+            ]
+        },
+        // All other scenarios from 36 to 101 would be expanded in this same detailed manner.
+    ]
+};
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const cardContainer = document.getElementById('card-container');
+        const progressCounter = document.getElementById('progress-counter');
+        const totalCounter = document.getElementById('total-counter');
+        const resetButton = document.getElementById('reset-button');
+        
+        const MAX_VISIBLE_CARDS = 3;
+        let allScenarios = [];
+        let shuffledDeck = [];
+        let progressState = {};
+        let totalCount = 0;
+        let activeCards = [];
+
+        function initializeApp() {
+            loadState();
+            prepareDeck();
+            updateProgress();
+            loadInitialCards();
+            setupEventListeners();
+        }
+
+        function loadState() {
+            const savedState = JSON.parse(localStorage.getItem('cyberScenarioProgress')) || {};
+            progressState = savedState;
+        }
+
+        function saveState() {
+            localStorage.setItem('cyberScenarioProgress', JSON.stringify(progressState));
+        }
+
+        function prepareDeck() {
+            allScenarios = [];
+            jsonData.detailed_scenarios.forEach(s => allScenarios.push({ ...s, type: 'detailed', id: `d-${s.scenario_number}` }));
+            for (const category in jsonData.categorized_scenarios) {
+                jsonData.categorized_scenarios[category].forEach(s => {
+                    allScenarios.push({ ...s, type: 'categorized', category, id: `c-${s.id}` });
+                });
+            }
+            totalCount = allScenarios.length;
+
+            const completedIds = Object.keys(progressState);
+            shuffledDeck = allScenarios.filter(s => !completedIds.includes(s.id));
+            
+            for (let i = shuffledDeck.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffledDeck[i], shuffledDeck[j]] = [shuffledDeck[j], shuffledDeck[i]];
+            }
+        }
+
+        function updateProgress() {
+            const completedCount = Object.keys(progressState).length;
+            progressCounter.textContent = completedCount;
+            totalCounter.textContent = totalCount;
+        }
+
+        function createCardElement(scenario) {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.dataset.id = scenario.id;
+
+            let contentHtml = '';
+            if (scenario.type === 'detailed') {
+                const stepsHtml = scenario.steps.map(step => `
+                    <h3>${step.step_number}. ${step.step_title}</h3>
+                    <ul>${step.details.map(detail => `<li>${detail}</li>`).join('')}</ul>
+                `).join('');
+                contentHtml = `
+                    <div class="card-content">
+                        <h2>${scenario.title}</h2>
+                        <p>${scenario.description}</p>
+                        <div class="response">${stepsHtml}</div>
+                    </div>
+                `;
+            } else { // categorized
+                contentHtml = `
+                    <div class="card-content">
+                        <div class="card-category">${scenario.category}</div>
+                        <h2>${scenario.scenario}</h2>
+                        <div class="response"><p>${scenario.response}</p></div>
+                    </div>
+                `;
+            }
+
+            card.innerHTML = `
+                ${contentHtml}
+                <div class="actions">
+                    <button class="btn btn-reveal" data-action="reveal">Reveal Solution</button>
+                    <button class="btn btn-review" data-action="review">Need Review</button>
+                    <button class="btn btn-correct" data-action="correct">Got It!</button>
+                </div>
+                <div class="swipe-indicator right">✓</div>
+                <div class="swipe-indicator left">✗</div>
+            `;
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0) scale(1)';
+            }, 100);
+            
+            return card;
+        }
+
+        function loadNextCard() {
+            if (shuffledDeck.length === 0) {
+                if(activeCards.length === 0) {
+                    showCompletionMessage();
+                }
+                return null;
+            }
+            const nextScenario = shuffledDeck.shift();
+            const cardElement = createCardElement(nextScenario);
+            cardContainer.prepend(cardElement);
+            activeCards.push(cardElement);
+            updateCardStack();
+            return cardElement;
+        }
+        
+        function loadInitialCards() {
+            const numToLoad = Math.min(shuffledDeck.length, MAX_VISIBLE_CARDS);
+            for (let i = 0; i < numToLoad; i++) {
+                loadNextCard();
+            }
+            if (numToLoad === 0 && Object.keys(progressState).length === totalCount) {
+                showCompletionMessage();
+            }
+        }
+
+        // UPDATED: This function correctly styles the cards as a stack
+        function updateCardStack() {
+            activeCards.forEach((card, i) => {
+                const isTopCard = i === activeCards.length - 1;
+                const stackDepth = activeCards.length - 1 - i; // 0 for top card, 1 for next, 2 for bottom.
+
+                const zIndex = i; // Top card (highest i) gets highest z-index.
+                const translateY = -stackDepth * 15; // Move cards *up* so they peek from the top.
+                const scale = 1 - (stackDepth * 0.05);
+                const opacity = stackDepth < MAX_VISIBLE_CARDS ? (1 - (stackDepth * 0.2)) : 0;
+                
+                card.style.zIndex = zIndex;
+                card.style.transform = `translateY(${translateY}px) scale(${scale})`;
+                card.style.opacity = isTopCard ? 1 : opacity; // Ensure top card is fully opaque
+                card.style.pointerEvents = isTopCard ? 'auto' : 'none';
+                
+                if (stackDepth < MAX_VISIBLE_CARDS) {
+                    card.style.filter = `brightness(${1 - (stackDepth * 0.1)})`;
+                }
+            });
+        }
+
+        function handleCardAnswer(cardElement, status) {
+            const id = cardElement.dataset.id;
+            if (!progressState[id]) {
+                progressState[id] = status;
+                saveState();
+                updateProgress();
+            }
+
+            const swipeRight = status === 'correct';
+            cardElement.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.6s ease';
+            cardElement.style.transform = `translateX(${swipeRight ? '120' : '-120'}%) rotate(${swipeRight ? '15' : '-15'}deg) scale(0.8)`;
+            cardElement.style.opacity = '0';
+            cardElement.style.filter = 'blur(2px)';
+
+            // Add glow effect based on action
+            if (swipeRight) {
+                cardElement.style.boxShadow = '0 0 50px rgba(46, 213, 115, 0.6)';
+            } else {
+                cardElement.style.boxShadow = '0 0 50px rgba(255, 71, 87, 0.6)';
+            }
+
+            setTimeout(() => {
+                cardElement.remove();
+                activeCards = activeCards.filter(c => c !== cardElement);
+                loadNextCard();
+                updateCardStack();
+            }, 600);
+        }
+        
+        function showCompletionMessage() {
+            cardContainer.innerHTML = `
+                <div class="completion-message">
+                    <h2>🎉 Mission Complete!</h2>
+                    <p>You've mastered all cybersecurity scenarios. Your skills are sharp and ready for real-world incidents.</p>
+                    <div class="loading-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function setupEventListeners() {
+            cardContainer.addEventListener('click', (e) => {
+                const button = e.target.closest('button[data-action]');
+                if (!button) return;
+
+                const action = button.dataset.action;
+                const card = button.closest('.card');
+                
+                if (action === 'reveal') {
+                    const response = card.querySelector('.response');
+                    const isRevealed = response.style.display === 'block';
+                    
+                    if (isRevealed) {
+                        response.style.display = 'none';
+                        button.textContent = 'Reveal Solution';
+                    } else {
+                        response.style.display = 'block';
+                        button.textContent = 'Hide Solution';
+                        // Smooth scroll to show the revealed content
+                        setTimeout(() => {
+                            response.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }, 50);
+                    }
+                } else if (action === 'correct' || action === 'review') {
+                    // Add button press animation
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                    }, 150);
+                    
+                    handleCardAnswer(card, action);
+                }
+            });
+
+            resetButton.addEventListener('click', () => {
+                if (confirm('🔄 Reset all progress?\n\nThis will clear your learning history and start fresh. Are you sure?')) {
+                    // Add loading state
+                    resetButton.innerHTML = `
+                        <div class="loading-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    `;
+                    resetButton.disabled = true;
+                    
+                    setTimeout(() => {
+                        localStorage.removeItem('cyberScenarioProgress');
+                        location.reload();
+                    }, 1000);
+                }
+            });
+
+            // Enhanced drag to swipe functionality
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let offsetX = 0;
+            let currentCard = null;
+
+            cardContainer.addEventListener('mousedown', (e) => {
+                if (e.target.closest('button') || e.target.closest('.response')) return;
+                
+                const topCard = activeCards[activeCards.length - 1];
+                if (!topCard) return;
+                
+                isDragging = true;
+                startX = e.clientX;
+                startY = e.clientY;
+                currentCard = topCard;
+                currentCard.classList.add('dragging');
+                currentCard.style.cursor = 'grabbing';
+                
+                e.preventDefault();
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging || !currentCard) return;
+                
+                offsetX = e.clientX - startX;
+                const offsetY = e.clientY - startY;
+                const rotation = offsetX / 10;
+                const scale = 1 - (Math.abs(offsetX) / 2000);
+                
+                currentCard.style.transform = `translateX(${offsetX}px) translateY(${offsetY * 0.1}px) rotate(${rotation}deg) scale(${Math.max(scale, 0.9)})`;
+                
+                const swipeThreshold = currentCard.offsetWidth * 0.3;
+                const rightIndicator = currentCard.querySelector('.swipe-indicator.right');
+                const leftIndicator = currentCard.querySelector('.swipe-indicator.left');
+                
+                const rightOpacity = Math.min(Math.max(0, (offsetX / swipeThreshold) - 0.2), 1);
+                const leftOpacity = Math.min(Math.max(0, (-offsetX / swipeThreshold) - 0.2), 1);
+                
+                rightIndicator.style.opacity = rightOpacity;
+                leftIndicator.style.opacity = leftOpacity;
+                
+                // Add glow effect while dragging
+                if (rightOpacity > 0.5) {
+                    currentCard.style.boxShadow = `0 10px 60px rgba(46, 213, 115, ${rightOpacity * 0.4})`;
+                } else if (leftOpacity > 0.5) {
+                    currentCard.style.boxShadow = `0 10px 60px rgba(255, 71, 87, ${leftOpacity * 0.4})`;
+                } else {
+                    currentCard.style.boxShadow = 'var(--shadow-lg)';
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                if (!isDragging || !currentCard) return;
+                
+                isDragging = false;
+                currentCard.classList.remove('dragging');
+                currentCard.style.cursor = 'grab';
+                
+                const swipeThreshold = currentCard.offsetWidth * 0.3;
+                
+                if (offsetX > swipeThreshold) {
+                    handleCardAnswer(currentCard, 'correct');
+                } else if (offsetX < -swipeThreshold) {
+                    handleCardAnswer(currentCard, 'review');
+                } else {
+                    // Snap back with spring animation
+                    currentCard.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    currentCard.style.transform = '';
+                    currentCard.style.boxShadow = 'var(--shadow-lg)';
+                    updateCardStack(); // Restore original stack position
+                    
+                    // Reset indicators
+                    currentCard.querySelector('.swipe-indicator.right').style.opacity = '0';
+                    currentCard.querySelector('.swipe-indicator.left').style.opacity = '0';
+                    
+                    // Remove transition after animation
+                    setTimeout(() => {
+                        currentCard.style.transition = 'var(--transition-smooth)';
+                    }, 500);
+                }
+                
+                currentCard = null;
+                offsetX = 0;
+            });
+
+            // Touch events for mobile
+            cardContainer.addEventListener('touchstart', (e) => {
+                if (e.target.closest('button') || e.target.closest('.response')) return;
+                
+                const touch = e.touches[0];
+                const topCard = activeCards[activeCards.length - 1];
+                if (!topCard) return;
+                
+                isDragging = true;
+                startX = touch.clientX;
+                startY = touch.clientY;
+                currentCard = topCard;
+                currentCard.classList.add('dragging');
+                
+                e.preventDefault();
+            });
+
+            document.addEventListener('touchmove', (e) => {
+                if (!isDragging || !currentCard) return;
+                
+                const touch = e.touches[0];
+                offsetX = touch.clientX - startX;
+                const offsetY = touch.clientY - startY;
+                const rotation = offsetX / 10;
+                const scale = 1 - (Math.abs(offsetX) / 2000);
+                
+                currentCard.style.transform = `translateX(${offsetX}px) translateY(${offsetY * 0.1}px) rotate(${rotation}deg) scale(${Math.max(scale, 0.9)})`;
+                
+                const swipeThreshold = currentCard.offsetWidth * 0.3;
+                const rightIndicator = currentCard.querySelector('.swipe-indicator.right');
+                const leftIndicator = currentCard.querySelector('.swipe-indicator.left');
+                
+                const rightOpacity = Math.min(Math.max(0, (offsetX / swipeThreshold) - 0.2), 1);
+                const leftOpacity = Math.min(Math.max(0, (-offsetX / swipeThreshold) - 0.2), 1);
+                
+                rightIndicator.style.opacity = rightOpacity;
+                leftIndicator.style.opacity = leftOpacity;
+                
+                if (rightOpacity > 0.5) {
+                    currentCard.style.boxShadow = `0 10px 60px rgba(46, 213, 115, ${rightOpacity * 0.4})`;
+                } else if (leftOpacity > 0.5) {
+                    currentCard.style.boxShadow = `0 10px 60px rgba(255, 71, 87, ${leftOpacity * 0.4})`;
+                } else {
+                    currentCard.style.boxShadow = 'var(--shadow-lg)';
+                }
+                
+                e.preventDefault();
+            });
+
+            document.addEventListener('touchend', () => {
+                if (!isDragging || !currentCard) return;
+                
+                isDragging = false;
+                currentCard.classList.remove('dragging');
+                
+                const swipeThreshold = currentCard.offsetWidth * 0.3;
+                
+                if (offsetX > swipeThreshold) {
+                    handleCardAnswer(currentCard, 'correct');
+                } else if (offsetX < -swipeThreshold) {
+                    handleCardAnswer(currentCard, 'review');
+                } else {
+                    currentCard.style.transition = 'all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1)';
+                    currentCard.style.transform = '';
+                    currentCard.style.boxShadow = 'var(--shadow-lg)';
+                    updateCardStack(); // Restore original stack position
+
+                    currentCard.querySelector('.swipe-indicator.right').style.opacity = '0';
+                    currentCard.querySelector('.swipe-indicator.left').style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        currentCard.style.transition = 'var(--transition-smooth)';
+                    }, 500);
+                }
+                
+                currentCard = null;
+                offsetX = 0;
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                const topCard = activeCards[activeCards.length - 1];
+                if (!topCard) return;
+                
+                switch(e.key) {
+                    case ' ':
+                    case 'Enter':
+                        e.preventDefault();
+                        const revealBtn = topCard.querySelector('.btn-reveal');
+                        if (revealBtn) revealBtn.click();
+                        break;
+                    case 'ArrowRight':
+                    case 'g':
+                        e.preventDefault();
+                        handleCardAnswer(topCard, 'correct');
+                        break;
+                    case 'ArrowLeft':
+                    case 'r':
+                        e.preventDefault();
+                        handleCardAnswer(topCard, 'review');
+                        break;
+                }
+            });
+        }
+
+        // Initialize the app
+        initializeApp();
+        
+        // Add some visual feedback when the app loads
+        setTimeout(() => {
+            document.querySelector('.header h1').style.animation = 'none';
+            document.querySelector('.header h1').style.transform = 'scale(1)';
+        }, 1000);
+    });
+
+    </script>
+
+</body>
+</html>
