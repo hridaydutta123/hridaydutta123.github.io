@@ -391,79 +391,139 @@ GitHubActivity.feed({
 
 <!-- Research Section -->
 <section id="publications">
-    <div class="container lead">
-        <div style="text-align: left; margin-top:10px" class="col-md-12">
+  <div class="container lead" style="text-align: left;">
+    <hr class="star-primary">
+    <h2>Publications</h2>
 
-            <i class="noshow" style="display:none;" id="tab-3">
-                <button class="btn btn-default btn-lg btn-block" style="display: block; width: 100%;" onclick="javascript:$('#tab-3-content').toggle();">Publications  <span class="glyphicon glyphicon-chevron-right"></span></button>
-            </i>
-            <div class="allshow" style="display:none;" id="tab-3-content">
-            <hr class="star-primary">
+    <h4>
+      <span class="label label-warning">
+        <a target="_blank" href="https://en.wikipedia.org/wiki/H-index" style="color:white">h-index</a>: 9
+      </span>&nbsp;
+      <span class="label label-warning">
+        <a target="_blank" href="https://scholar.google.co.in/citations?user=4UrQjwUAAAAJ&hl=en" style="color:white">Citations</a>: 317
+      </span>
+    </h4>
 
-            <h2>Publications</h2>
-            <h4>
-            <span class="label label-warning">
-                <a target="_blank" href="https://en.wikipedia.org/wiki/H-index"><font color=white>h-index</font></a>: 9
-            </span>&nbsp;
-            <span class="label label-warning">
-               <a target="_blank" href="https://scholar.google.co.in/citations?user=4UrQjwUAAAAJ&hl=en"><font color=white>Citations</font></a>: 312
-            </span>&nbsp;
-           
-            </h4>
+    <!-- Panel Navigation -->
+    <ul class="nav nav-pills" style="margin-top:20px; text-align:left;">
+      <li class="active"><a href="javascript:void(0)" onclick="filterPubs('selected', this)">Top Papers</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('all', this)">All</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('security', this)">Security</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('social', this)">Social Networks</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('journal', this)">Journals</a></li>      
+      <li><a href="javascript:void(0)" onclick="filterPubs('conference', this)">Conferences</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('extended', this)">Extended Abstracts</a></li>
+      <li><a href="javascript:void(0)" onclick="filterPubs('preprint', this)">Preprints</a></li>
+    </ul>
 
-            <ul>
+    <!-- Panel Body -->
+    <div style="margin-top:15px;">
+      <ul class="pub-list">
 
-        <li><span class="label label-success">SioTec@CIKM'25</span> <a target="_blank" href="https://cikm2025.org/">"Securing User Identity in Web3 Social Platforms: A Post-Quantum Biometric Approach"</a>, Swati Kumari, <b>Hridoy Sankar Dutta</b> and Hitesh Tiwari. <i><b>6th Workshop on Secure IoT, Edge and Cloud systems, The 34th ACM International Conference on Information and Knowledge Management, Conference on Information and Knowledge Management (CIKM 2025), </b></i> November 10-15, 2025
+        <!-- Selected Papers -->
+        <li class='pub-item preprint'><span class="label label-success">Preprint</span> <a target="_blank" href="https://arxiv.org/pdf/2512.01365">"Modeling Wavelet Transformed Quantum Support Vector for Network Intrusion Detection"</a>, Swati Kumari, Shiva Raj Pokhrel, Swathi Chandrasekhar, Navneet Singh, <b>Hridoy Sankar Dutta</b>, Adnan Anwar, Sutharshan Rajasegarar, Robin Doss.
 
-        <li><span class="label label-success">CIKM'25</span> <a target="_blank" href="https://cikm2025.org/">"YTCommentVerse: A Multi-Category Multi-Lingual YouTube Comment Corpus"</a>, <b>Hridoy Sankar Dutta</b> and Biswadeep Khan. <i><b>Conference on Information and Knowledge Management (CIKM 2025), </b></i> November 10-15, 2025
+        <li class='pub-item preprint'><span class="label label-success">Preprint</span> <a target="_blank" href="https://arxiv.org/abs/2508.16843">"A Survey of Threats Against Voice Authentication and Anti-Spoofing Systems"</a>, Kamel Kamel, <b>Hridoy Sankar Dutta</b>, Keshav Sood, Sunil Aryal.
 
-        <li><span class="label label-success">WikiWorkshop'25</span> <a target="_blank" href="https://meta.wikimedia.org/wiki/Wiki_Workshop_2025">"Backlinks for Sale: A First Look into Marketplaces Selling Wikipedia Backlinks"</a>, <b>Hridoy Sankar Dutta</b> and Yanna Papadodimitraki. <i><b>12th Annual Wiki Workshop (WikiWorkshop 2025),</b></i> May 21-22, 2025.
+        <li class='pub-item preprint'><span class="label label-success">Preprint</span> <a target="_blank" href="https://arxiv.org/abs/2509.06774">"OpenCoderRank: AI-Driven Technical Assessments Made Easy"</a>, <b>Hridoy Sankar Dutta</b>, Sana Ansari, Swati Kumari, Shounak Ravi Bhalerao.
 
-        <li><span class="label label-success">AsiaCCS'25</span> <a target="_blank" href="https://asiaccs2025.hust.edu.vn/">"App-solutely Modded: The rift between modded app market operators and original developers"</a>, Luis A. Saavedra del Toro, <b>Hridoy Sankar Dutta</b>, Alastair Beresford, Alice Hutchings. <i><b>The ACM ASIA Conference on Computer and Communications Security (ACM ASIACCS 2025),</b></i> 25-29 August 2025, Ha Noi, Vietnam.
+        <li class='pub-item security'><span class="label label-success">SioTec@CIKM'25</span> <a target="_blank" href="https://cikm2025.org/">"Securing User Identity in Web3 Social Platforms: A Post-Quantum Biometric Approach"</a>, Swati Kumari, <b>Hridoy Sankar Dutta</b> and Hitesh Tiwari. <i><b>6th Workshop on Secure IoT, Edge and Cloud systems, The 34th ACM International Conference on Information and Knowledge Management, Conference on Information and Knowledge Management (CIKM 2025), </b></i> November 10-15, 2025
 
-        <li><span class="label label-success">LOD'25</span> <a target="_blank" href="https://lod2025.icas.events/">"Half-life of Youtube News Videos: Diffusion Dynamics and Predictive Factors"</a>, Anahit Sargsyan, <b>Hridoy Sankar Dutta</b> and Juergen Pfeffer. <i><b>The 11th International Conference on Machine Learning, Optimization, and Data Science (LOD 2025),</b></i> 21-24 September 2025, Tuscany, Italy.
+        <li class='pub-item social selected'><span class="label label-success">CIKM'25</span> <a target="_blank" href="https://cikm2025.org/">"YTCommentVerse: A Multi-Category Multi-Lingual YouTube Comment Corpus"</a>, <b>Hridoy Sankar Dutta</b> and Biswadeep Khan. <i><b>Conference on Information and Knowledge Management (CIKM 2025), </b></i> November 10-15, 2025
 
-        <li><span class="label label-success">eCrime'24</span> <a target="_blank" href="https://apwg.org/event/ecrime2024/">"ModZoo: A Large-Scale Study of Modded Android Apps and their Markets"</a>, Luis A. Saavedra, <b>Hridoy Sankar Dutta</b>, Alastair Beresford, Alice Hutchings. <i><b>2024 APWG Symposium on Electronic Crime Research (eCrime),</b></i>, 24-26 September 2024, Boston, USA.
+        <li class='pub-item extended'><span class="label label-success">WikiWorkshop'25</span> <a target="_blank" href="https://meta.wikimedia.org/wiki/Wiki_Workshop_2025">"Backlinks for Sale: A First Look into Marketplaces Selling Wikipedia Backlinks"</a>, <b>Hridoy Sankar Dutta</b> and Yanna Papadodimitraki. <i><b>12th Annual Wiki Workshop (WikiWorkshop 2025),</b></i> May 21-22, 2025.
 
-        <li><span class="label label-success">DRW'23</span> <a target="_blank" href="https://drw2023.github.io/">"Analyzing online media platforms for hacktivist group organization and proliferation"</a>, Quincy Taylor,  Derek Hansen, <b>Hridoy Sankar Dutta</b> and Justin Giboney. <i><b>The 15th Dewald Roode Workshop on Information Systems Security Research (DRW 2023)</b></i>, 22-23 June 2023, Glasgow, Scotland.
+        <li class='pub-item security selected'><span class="label label-success">AsiaCCS'25</span> <a target="_blank" href="https://asiaccs2025.hust.edu.vn/">"App-solutely Modded: The rift between modded app market operators and original developers"</a>, Luis A. Saavedra del Toro, <b>Hridoy Sankar Dutta</b>, Alastair Beresford, Alice Hutchings. <i><b>The ACM ASIA Conference on Computer and Communications Security (ACM ASIACCS 2025),</b></i> 25-29 August 2025, Ha Noi, Vietnam.
 
-        <li><span class="label label-success">MobiUK</span> <a target="_blank" href="https://mobiuk.org/2022/">"Analysis of Modded Android Apps and Marketplaces"</a>, Luis Adán Saavedra del Toro, Alastair Beresford, <b>Hridoy Sankar Dutta</b> and Alice Hutchings. <i><b>Fourth UK Mobile, Wearable and Ubiquitous Systems Research Symposium (MobiUK)</b></i>, 4th-5th July 2022, UCL.
+        <li class='pub-item social'><span class="label label-success">LOD'25</span> <a target="_blank" href="https://lod2025.icas.events/">"Half-life of Youtube News Videos: Diffusion Dynamics and Predictive Factors"</a>, Anahit Sargsyan, <b>Hridoy Sankar Dutta</b> and Juergen Pfeffer. <i><b>The 11th International Conference on Machine Learning, Optimization, and Data Science (LOD 2025),</b></i> 21-24 September 2025, Tuscany, Italy.
 
-        <li><span class="label label-success">ACM TDS</span> <a target="_blank" href="https://dl.acm.org/journal/tds">"Blackmarket-driven Collusion on Online Media: A Survey"</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>ACM/IMS Transactions on Data Science (TDS)</b></i>, 2022.
+        <li  class='pub-item security selected'><span class="label label-success">eCrime'24</span> <a target="_blank" href="https://apwg.org/event/ecrime2024/">"ModZoo: A Large-Scale Study of Modded Android Apps and their Markets"</a>, Luis A. Saavedra, <b>Hridoy Sankar Dutta</b>, Alastair Beresford, Alice Hutchings. <i><b>2024 APWG Symposium on Electronic Crime Research (eCrime),</b></i>, 24-26 September 2024, Boston, USA.
 
-        <li><span class="label label-success">ICWSM'22</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"Weakening the Inner Strength: Spotting Core Collusive Users in YouTube Blackmarket Network"</a>, <b>Hridoy Sankar Dutta</b>, Nirav Diwan and Tanmoy Chakraborty. <i><b>International AAAI Conference on Web and Social Media (ICWSM 2022)</b></i>, 2022.
+        <li class='pub-item security'><span class="label label-success">DRW'23</span> <a target="_blank" href="https://drw2023.github.io/">"Analyzing online media platforms for hacktivist group organization and proliferation"</a>, Quincy Taylor,  Derek Hansen, <b>Hridoy Sankar Dutta</b> and Justin Giboney. <i><b>The 15th Dewald Roode Workshop on Information Systems Security Research (DRW 2023)</b></i>, 22-23 June 2023, Glasgow, Scotland.
 
-        <li><span class="label label-success">ACM TIST</span> <a target="_blank" href="#">"Detecting and Analyzing Collusive Entities on YouTube."</a>, <b>Hridoy Sankar Dutta</b>, Mayank Jobanputra, Himani Negi, Tanmoy Chakraborty. <i><b>ACM Transactions on Intelligent Systems and Technology (TIST)</b></i>, 2021. (Impact Factor: 3.971)
+        <li class='pub-item extended'><span class="label label-success">MobiUK</span> <a target="_blank" href="https://mobiuk.org/2022/">"Analysis of Modded Android Apps and Marketplaces"</a>, Luis Adán Saavedra del Toro, Alastair Beresford, <b>Hridoy Sankar Dutta</b> and Alice Hutchings. <i><b>Fourth UK Mobile, Wearable and Ubiquitous Systems Research Symposium (MobiUK)</b></i>, 4th-5th July 2022, UCL.
 
-        <li><span class="label label-success">HyperText'21</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"DECIFE: Detecting Collusive Users Involved in Blackmarket Following Services on Twitter"</a>, <b>Hridoy Sankar Dutta</b>, Kartik Aggarwal and Tanmoy Chakraborty. <i><b>32nd ACM Conference on Hypertext and Social Media (HyperText 2021)</b></i>, Trinity College Dublin, Ireland, 2021.
+        <li class='pub-item social security journal'><span class="label label-success">ACM TDS</span> <a target="_blank" href="https://dl.acm.org/journal/tds">"Blackmarket-driven Collusion on Online Media: A Survey"</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>ACM/IMS Transactions on Data Science (TDS)</b></i>, 2022.
 
-        <li><span class="label label-success">ICWSM'21</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"ABOME: A Multi-platform Data Repository of Artificially Boosted Online Media Entities"</a>, <b>Hridoy Sankar Dutta</b>, Udit Arora and Tanmoy Chakraborty. <i><b>International AAAI Conference on Web and Social Media (ICWSM 2021)</b></i>, 2021.
+        <li class='pub-item social security conference selected'><span class="label label-success">ICWSM'22</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"Weakening the Inner Strength: Spotting Core Collusive Users in YouTube Blackmarket Network"</a>, <b>Hridoy Sankar Dutta</b>, Nirav Diwan and Tanmoy Chakraborty. <i><b>International AAAI Conference on Web and Social Media (ICWSM 2022)</b></i>, 2022.
 
-        <li><span class="label label-success">AAAI'21</span> <a target="_blank" href="http://bda2020.org/">"Revealing the Blackmarket Retweet Game: A Hybrid Approach"</a>, Shreyash Arya and <b>Hridoy Sankar Dutta</b>. <i><b>CONSTRAINT Workshop @ AAAI</b></i>, 2021.
+        <li class='pub-item social security journal selected'><span class="label label-success">ACM TIST</span> <a target="_blank" href="#">"Detecting and Analyzing Collusive Entities on YouTube."</a>, <b>Hridoy Sankar Dutta</b>, Mayank Jobanputra, Himani Negi, Tanmoy Chakraborty. <i><b>ACM Transactions on Intelligent Systems and Technology (TIST)</b></i>, 2021. (Impact Factor: 3.971)
 
-        <li><span class="label label-success">BDA'20</span> <a target="_blank" href="http://bda2020.org/">"Adversarial Collusion on the Web: State-of-the-Art and Future Directions."</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>The Eighth International Conference on Big Data Analytics (BDA 2020)</b></i>, 2020.
+        <li class='pub-item social security conference'><span class="label label-success">HyperText'21</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"DECIFE: Detecting Collusive Users Involved in Blackmarket Following Services on Twitter"</a>, <b>Hridoy Sankar Dutta</b>, Kartik Aggarwal and Tanmoy Chakraborty. <i><b>32nd ACM Conference on Hypertext and Social Media (HyperText 2021)</b></i>, Trinity College Dublin, Ireland, 2021.
 
-		<li><span class="label label-success">ACM TIST</span> <a target="_blank" href="#">"Analyzing and Detecting Collusive Users Involved in Blackmarket Retweeting Activities."</a>, Udit Arora*, <b>Hridoy Sankar Dutta</b>*, Aditya Chetan, Brihi Joshi and Tanmoy Chakraborty. <i><b>ACM Transactions on Intelligent Systems and Technology (TIST)</b></i>, 2019. (Impact Factor: 3.971)
+        <li  class='pub-item social conference security selected'><span class="label label-success">ICWSM'21</span> <a target="_blank" href="https://www.icwsm.org/2021/index.html">"ABOME: A Multi-platform Data Repository of Artificially Boosted Online Media Entities"</a>, <b>Hridoy Sankar Dutta</b>, Udit Arora and Tanmoy Chakraborty. <i><b>International AAAI Conference on Web and Social Media (ICWSM 2021)</b></i>, 2021.
 
-		<li><span class="label label-success">IEEE TIFS</span> <a target="_blank" href="#">"HawkesEye: Detecting Fake Retweeters using Hawkes Process and Topic Modeling."</a>, <b>Hridoy Sankar Dutta</b>, Vishal Raj Dutta, Aditya Adhikary and Tanmoy Chakraborty. <i><b>IEEE Transactions on Information Forensics and Security (TIFS)</b></i>, 2019. (Impact Factor: 6.211)
+        <li class='pub-item social workshop'><span class="label label-success">AAAI'21</span> <a target="_blank" href="http://bda2020.org/">"Revealing the Blackmarket Retweet Game: A Hybrid Approach"</a>, Shreyash Arya and <b>Hridoy Sankar Dutta</b>. <i><b>CONSTRAINT Workshop @ AAAI</b></i>, 2021.
 
-                <li><span class="label label-success">IEEE TIFS</span> <a target="_blank" href="#">"Blackmarket-driven Collusion among Retweeters – Analysis, Detection and Characterization."</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>IEEE Transactions on Information Forensics and Security (TIFS)</b></i>, 2019. (Impact Factor: 6.211)
+        <li  class='pub-item extended'><span class="label label-success">BDA'20</span> <a target="_blank" href="http://bda2020.org/">"Adversarial Collusion on the Web: State-of-the-Art and Future Directions."</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>The Eighth International Conference on Big Data Analytics (BDA 2020)</b></i>, 2020.
 
-                <li><span class="label label-success">Elsevier JNCA</span> <a target="_blank" href="#">"CRIMP: Here Crisis Mapping Goes Offline"</a>, Partha Sarathi Paul, Bishakh Chandra Ghosh, <b>Hridoy Sankar Dutta</b>, Kingshuk De, Arka Prava Basu, Prithviraj Pramanik, Sujoy Saha, Sandip Chakraborty, Niloy Ganguly, Subrata Nandi. <i><b>Elsevier Journal of Network and Computer Applications (JNCA)</b></i>, 2019. (Impact Factor: 5.273)
+        <li class='pub-item social journal security selected'><span class="label label-success">ACM TIST</span> <a target="_blank" href="#">"Analyzing and Detecting Collusive Users Involved in Blackmarket Retweeting Activities."</a>, Udit Arora*, <b>Hridoy Sankar Dutta</b>*, Aditya Chetan, Brihi Joshi and Tanmoy Chakraborty. <i><b>ACM Transactions on Intelligent Systems and Technology (TIST)</b></i>, 2019. (Impact Factor: 3.971)
 
-                <li><span class="label label-success">WSDM'19</span> <a target="_blank" href="#">"CoReRank: Ranking to Detect Users Involved in Blackmarket-based Collusive Retweeting Activities"</a>, Aditya Chetan*, Brihi Joshi*, <b>Hridoy Sankar Dutta*</b>, Tanmoy Chakraborty, <i><b>12th ACM International Conference on Web Search and Data Mining (WSDM 2019)</b></i>, Melbourne, Australia, Feb 11-15, 2019. (Acceptance rate: 16%)
+        <li  class='pub-item security journal selected'><span class="label label-success">IEEE TIFS</span> <a target="_blank" href="#">"HawkesEye: Detecting Fake Retweeters using Hawkes Process and Topic Modeling."</a>, <b>Hridoy Sankar Dutta</b>, Vishal Raj Dutta, Aditya Adhikary and Tanmoy Chakraborty. <i><b>IEEE Transactions on Information Forensics and Security (TIFS)</b></i>, 2019. (Impact Factor: 6.211)
 
-                 <li><span class="label label-success">ASONAM'18</span> <a target="_blank" href="#">"Retweet Us, We Will Retweet You: Spotting Collusive Retweeters Involved in Blackmarket Services"</a>, <b>Hridoy Sankar Dutta</b>, Aditya Chetan*, Brihi Joshi*, Tanmoy Chakraborty, <i><b>IEEE/ACM International Conference on Social Networks Analysis and Mining (ASONAM 2018)</b></i>, Barcelona, Spain, August 28- August 31, 2018. (Acceptance rate: 15%)
+                <li class='pub-item security journal selected'><span class="label label-success">IEEE TIFS</span> <a target="_blank" href="#">"Blackmarket-driven Collusion among Retweeters – Analysis, Detection and Characterization."</a>, <b>Hridoy Sankar Dutta</b> and Tanmoy Chakraborty. <i><b>IEEE Transactions on Information Forensics and Security (TIFS)</b></i>, 2019. (Impact Factor: 6.211)
+
+                <li  class='pub-item security journal selected'><span class="label label-success">Elsevier JNCA</span> <a target="_blank" href="#">"CRIMP: Here Crisis Mapping Goes Offline"</a>, Partha Sarathi Paul, Bishakh Chandra Ghosh, <b>Hridoy Sankar Dutta</b>, Kingshuk De, Arka Prava Basu, Prithviraj Pramanik, Sujoy Saha, Sandip Chakraborty, Niloy Ganguly, Subrata Nandi. <i><b>Elsevier Journal of Network and Computer Applications (JNCA)</b></i>, 2019. (Impact Factor: 5.273)
+
+                <li  class='pub-item social conference selected'><span class="label label-success">WSDM'19</span> <a target="_blank" href="#">"CoReRank: Ranking to Detect Users Involved in Blackmarket-based Collusive Retweeting Activities"</a>, Aditya Chetan*, Brihi Joshi*, <b>Hridoy Sankar Dutta*</b>, Tanmoy Chakraborty, <i><b>12th ACM International Conference on Web Search and Data Mining (WSDM 2019)</b></i>, Melbourne, Australia, Feb 11-15, 2019. (Acceptance rate: 16%)
+
+                 <li  class='pub-item social conference'><span class="label label-success">ASONAM'18</span> <a target="_blank" href="#">"Retweet Us, We Will Retweet You: Spotting Collusive Retweeters Involved in Blackmarket Services"</a>, <b>Hridoy Sankar Dutta</b>, Aditya Chetan*, Brihi Joshi*, Tanmoy Chakraborty, <i><b>IEEE/ACM International Conference on Social Networks Analysis and Mining (ASONAM 2018)</b></i>, Barcelona, Spain, August 28- August 31, 2018. (Acceptance rate: 15%)
                
-                 <li><span class="label label-success">ACM SIGSPATIAL'16</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=3017620">"Offline Crisis Mapping by Opportunistic Dissemination of Crisis Data after         Large-scale Disasters"</a>, Partha Sarathi Paul, <b>Hridoy Sankar Dutta</b>, Bishakh Chandra Ghosh, Krishnandu Hazra, Sandip Chakraborty, Sujoy Saha, Subrata Nandi, <i><b>2nd ACM SIGSPATIAL Workshop on Emergency Management using GIS (ACM SIGSPATIAL Workshop - EM-GIS 2016)</b></i>, San Francisco Bay Area, CA, USA, October 31- November 03, 2016. 
+                 <li  class='pub-item conference workshop'><span class="label label-success">ACM SIGSPATIAL'16</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=3017620">"Offline Crisis Mapping by Opportunistic Dissemination of Crisis Data after         Large-scale Disasters"</a>, Partha Sarathi Paul, <b>Hridoy Sankar Dutta</b>, Bishakh Chandra Ghosh, Krishnandu Hazra, Sandip Chakraborty, Sujoy Saha, Subrata Nandi, <i><b>2nd ACM SIGSPATIAL Workshop on Emergency Management using GIS (ACM SIGSPATIAL Workshop - EM-GIS 2016)</b></i>, San Francisco Bay Area, CA, USA, October 31- November 03, 2016. 
                
-                <li><span class="label label-success">ACM SAC'14</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=2555080">"Hierarchical Topology Adaptation for Distributed Convergecast Applications"</a>, Sandip Chakraborty, Suchetana Chakraborty, Sushanta Karmakar and <b>Hridoy Sankar Dutta</b>,  <b><i>29th ACM Symposium On Applied Computing, Dependable and Adaptive Distributed Systems Track (ACM SAC - DADS)</b></i>, Gyeongju, Korea, March 24 - 28, 2014.</li>
+                <li  class='pub-item conference'><span class="label label-success">ACM SAC'14</span> <a target="_blank" href="http://dl.acm.org/citation.cfm?id=2555080">"Hierarchical Topology Adaptation for Distributed Convergecast Applications"</a>, Sandip Chakraborty, Suchetana Chakraborty, Sushanta Karmakar and <b>Hridoy Sankar Dutta</b>,  <b><i>29th ACM Symposium On Applied Computing, Dependable and Adaptive Distributed Systems Track (ACM SAC - DADS)</b></i>, Gyeongju, Korea, March 24 - 28, 2014.</li>
             </ul>
-           
-            </div>
-        </div>
+      </div>
     </div>
 </section>
+
+<style>
+  .pub-list { list-style: none; padding-left: 0; }
+  .label { 
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    margin-right: 8px;
+  }
+  .label-success { background-color: #5cb85c; color: white; }
+  .label-warning { background-color: #f0ad4e; }
+  .nav-pills { 
+    text-align: left;
+    padding-left: 0;
+  }
+  .nav-pills li {margin-right: 5px; }
+  .nav-pills li a { 
+    padding: 8px 15px;
+    display: block;
+    text-decoration: none;
+    color: #337ab7;
+    border-radius: 4px;
+  }
+  .nav-pills li.active a { background-color: #337ab7; color: white; }
+</style>
+
+<script>
+  function filterPubs(type, el) {
+    var items = document.getElementsByClassName('pub-item');
+    for (var i = 0; i < items.length; i++) {
+      if (type === 'all' || items[i].classList.contains(type)) {
+        items[i].style.display = 'list-item';
+      } else {
+        items[i].style.display = 'none';
+      }
+    }
+
+    // update active tab
+    var tabs = document.querySelectorAll('.nav-pills li');
+    tabs.forEach(function(t) { t.classList.remove('active'); });
+    if (el) el.parentElement.classList.add('active');
+  }
+
+  // default view on load
+  window.addEventListener('DOMContentLoaded', function() {
+    filterPubs('selected', document.querySelector('.nav-pills li.active a'));
+  });
+</script>
 
 
 <!-- Patent Section -->
